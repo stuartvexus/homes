@@ -3,9 +3,12 @@
  */
 import { userProperties } from "./schema.js";
 import { responseSuccess, responseError } from "../../../utils/schema/response.js";
+import {User} from "../../../models/user.js"
 
 export const getUserOpts = (handler, fastify) => ({
+  
   preValidation: [fastify.authenticate],
+  
   schema: {
     response: {
       200: responseSuccess({
@@ -19,4 +22,5 @@ export const getUserOpts = (handler, fastify) => ({
     },
   },
   handler: handler,
+  // /next()
 });

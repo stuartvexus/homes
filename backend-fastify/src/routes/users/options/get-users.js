@@ -4,8 +4,11 @@
 import { usersProperties } from "./schema.js";
 import { responseSuccess, responseError } from "../../../utils/schema/response.js";
 
+
 export const getUsersOpts = (handler, fastify) => ({
+  
   preValidation: [fastify.authenticate],
+
   schema: {
     response: {
       200: responseSuccess({

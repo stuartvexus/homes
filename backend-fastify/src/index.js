@@ -19,7 +19,9 @@ dotenv.config();
  * The Fastify instance.
  * @type {import('fastify').FastifyInstance}
  */
-export const fastify = await Fastify({ logger: process.env.LOGGER || true });
+export const fastify =   Fastify({
+  logger: true
+})
 
 // We allow Multi Part Form
 fastify.register(FastifyMultipart);
@@ -54,25 +56,19 @@ setFastifyCors(fastify);
 setFastifyRoutes(fastify);
 // We set webSocket connection
 setFastifyWebsocket();
+const db = "mongodb+srv://etolebradone:lovingson23@cluster0.pjipfgw.mongodb.net/dbo";
 
 mongoose
-  .connect(process.env.DB_CONNECT, {
-    useUnifiedTopology: true,
-    useNewUrlParser: true,
-  })
+  .connect(db)
   .then(() => {
-    const PORT = process.env.PORT || 5000;
-    try {
-      fastify.listen(
-        {
-          port: PORT,
-        },
-        () => {
-          console.log("Listening on PORT: " + PORT);
-        }
-      );
-    } catch (error) {
-      fastify.log.error(error);
-    }
+    console.log("Mongodb connection made")
   })
   .catch((e) => fastify.log.error(e));
+
+fastify.listen({ port: 8000 }, function (err, address) {
+  if (err) {
+    fastify.log.error(err)
+    process.exit(1)
+  }
+  // Server is now listening on ${address}
+})
