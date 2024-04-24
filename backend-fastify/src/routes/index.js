@@ -5,7 +5,8 @@ import { enquiriesRoutes } from "./enquiries/index.js";
 
 export const setFastifyRoutes = function (fastify) {
   fastify.get("/", (_, res) => {
-    res.send(true);
+    res.send({ message: 'Hello, world!' })
+    //res.send(true);
   });
   fastify.register(usersRoutes, { prefix: "/users" });
   fastify.register(authRoutes, { prefix: "/auth" });

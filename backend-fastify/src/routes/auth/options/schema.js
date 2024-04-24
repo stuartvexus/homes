@@ -6,6 +6,7 @@ export const authProperties = {
     email: { type: "string" },
     fullName: { type: "string" },
     accessToken: { type: "string" },
+    isAdmin:{type:"string"},
   },
 };
 Object.freeze(authProperties);
