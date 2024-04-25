@@ -80,7 +80,7 @@ $(document).ready( () => {
 											<p>${val.description}</p>
 										</div>
 										<div class="" style="position:absolute;right: 2.5%;bottom: 2.5%;z-index: 99;">
-										<button type="button" data-toggle="modal" data-target="#property-map" onclick="Service.showMap('${val.position.lat+":"+val.position.lng}','map',null,'${val.property_id}')" class="btn btn-sm btn-success" >View in Map</button>
+										<button type="button" data-toggle="modal" data-target="#property-map" onclick="Service.showMap('${val.position.lat+":"+val.position.lng}','map','property-position','${val.property_id}')" class="btn btn-sm btn-success" >View in Map</button>
 										</div>
 									
 									</div>
@@ -110,13 +110,7 @@ $(document).ready( () => {
 				$('.all-orders').empty();
 				$.each(data.data,  (key, val) => {
 					$('.all-orders').append( `
-						<tr>
-							<th scope="row">#${val.order._id}</th>
-							<td>${val.user.name}</td>
-							<td><span class="badge rounded-pill bg-success-10 text-success custom-badge">${val.order.status}</span>
-							</td>
-							<td>${val.order.amount}</td>
-						</tr>
+						${JSON.stringify(val)}
 					`);
 				 });
 			}
@@ -156,13 +150,7 @@ $(document).ready( () => {
 				$('.all-users').empty();
 				$.each(data.data,  (key, val) => {
 					$('.all-users').append( `
-						<tr>
-							<th scope="row">#${val.order._id}</th>
-							<td>${val.user.name}</td>
-							<td><span class="badge rounded-pill bg-success-10 text-success custom-badge">${val.order.status}</span>
-							</td>
-							<td>${val.order.amount}</td>
-						</tr>
+						${JSON.stringify(val)}
 					`);
 				 });
 			}
@@ -180,14 +168,8 @@ $(document).ready( () => {
 				
 				$('.all-enquiries').empty();
 				$.each(data.orders,  (key, val) => {
-					$('.users').append( `
-						<tr>
-							<th scope="row">#${val.order._id}</th>
-							<td>${val.user.name}</td>
-							<td><span class="badge rounded-pill bg-success-10 text-success custom-badge">${val.order.status}</span>
-							</td>
-							<td>${val.order.amount}</td>
-						</tr>
+					$('.all-enquiries').append( `
+						${JSON.stringify(val)}
 					`);
 				 });
 			}

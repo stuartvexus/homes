@@ -32,7 +32,7 @@ app.use(session({
   secret: 'your-secret-key',
   resave: false,
   saveUninitialized: true,
-  cookie: { secure: false } // Set secure to true if using HTTPS
+  cookie: { maxAge: 4 * 60 * 60 * 1000,secure: false } // Set secure to true if using HTTPS
 }));
 
 const corsOptions ={

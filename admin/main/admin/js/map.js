@@ -106,18 +106,22 @@ Service.initMap = async (loc,id,inp_id) => {
 		const data = loc
 		
 		marker.position = data
-		geocoder.geocode({ location: data })
-		.then((response) => {
-			if (response.results[0]) {
+		//geocoder.geocode({ location: data })
+		//.then((response) => {
+			//if (data) {
 				map.setZoom(11);
 
-				infowindow.setContent(response.results[0].formatted_address);
-				infowindow.open(map, marker);
-			} else {
-				window.alert("No results found");
-			}
-			})
-			.catch((e) => window.alert("Geocoder failed due to: " + e));
+				infoWindow.setContent(`Latitude : ${data.lat} & Longitude : ${data.lng}`);
+				infoWindow.open(map, marker);
+			//} else {
+				//window.alert("No results found");
+			//}
+			//})
+			//.catch((e) => window.alert("Geocoder failed due to: " + e));
+			 if(inp_id !== null && inp_id !== undefined){
+				  document.getElementById(inp_id).value = data.lat+ ":" + data.lng
+				  console.log(inp_id,$("#"+inp_id).val())
+			  }
 		return
 	}
 	map.addListener('click', function(e) {
@@ -126,21 +130,25 @@ Service.initMap = async (loc,id,inp_id) => {
 	  data.lng = e.latLng.lng();
 	  //document.getElementsByName()
 	  marker.position = data
-	  geocoder.geocode({ location: data })
-      .then((response) => {
-		  if (response.results[0]) {
+	  //geocoder.geocode({ location: data })
+      //.then((response) => {
+		  //if (response.results[0]) {
 			map.setZoom(11);
 
-			infowindow.setContent(response.results[0].formatted_address);
-			infowindow.open(map, marker);
-		  } else {
-			window.alert("No results found");
-		  }
-		})
-		.catch((e) => window.alert("Geocoder failed due to: " + e));
+			infoWindow.setContent(`Latitude : ${data.lat} & Longitude : ${data.lng}`);//response.results[0].formatted_address
+			infoWindow.open(map, marker);
+		  //} else {
+			//window.alert("No results found");
+		  //}
+		//})
+		//.catch((e) => window.alert("Geocoder failed due to: " + e));
 	  
-	  if(document.getElementById(inp_id))document.getElementById(inp_id).value = data.lat+ ":" + data.lng
-	  if(document.getElementById("accountlocation"))document.getElementById("accountlocation").innerText = data.lat+ ":" + data.lng
+	  if(inp_id !== null && inp_id !== undefined){
+		  console.log(inp_id)
+		  $("#"+inp_id).val(data.lat+ ":" + data.lng)
+		  console.log(inp_id,$("#"+inp_id).val())
+	  }
+	  //if(document.getElementById("accountlocation"))document.getElementById("accountlocation").innerText = data.lat+ ":" + data.lng
 	});
 
 
