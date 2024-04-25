@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html ng-app>
+   <head>
+    <meta name="description" content="School Management System">
+    <meta name="keywords" content="school System">
+    
+    <meta name="author:" content="Et">
+    <link rel="shortcut icon" href="/img/logo.ico">
+    
+	<link rel="stylesheet" href="/finance_files/vendor-0eade7d9490cb657347e8219d2a4e785.css" integrity="" type="text/css">
+
+    <link rel="stylesheet" href="/finance_files/webapp-8a0cee2c8c0e5ff3b773a66185e55ed3.css" integrity="" type="text/css">
+	<link rel="stylesheet" href="/css/hilmacs.css" type="text/css"/>
+	<link rel="stylesheet" href="css/properties.css"/>
+
+	<title> Products </title>
+	<script src="https://maps.googleapis.com/maps/api/js?key={{map_key}}" async defer></script>
+    <style>
+        #map {
+            height: 400px;
+            width: 100%;
+        }
+    </style>
+	
+   </head>
+   <body>
+
+<div  >
+	<div id="content" class="app-content ng-scope"  role="main" ui-view="content@"><div class="box ng-scope">
+		  <!-- hilmacs Content Navbar -->
+		  <div w3-include-html="/templates/navTop" class="hm-nav-bar-top">&nbsp;</div>
+		  <!-- Content -->
+		  <div class="box-row">
+			<div class="box-cell">
+			  <!-- uiView:  --><div class="box-inner padding ng-scope" ui-view="" id="view"><!-- uiView:  --><div ui-view="" class="ng-scope">
+			<div class="row ng-scope">
+					<div class="col-md-3 hm-nav-bar-aside">
+						<div class="col-sm-12">
+						  <h5 class="no-margin m-b b">
+							Section overview</h5>
+						  <div class="list-group list-group-gap">
+							<a href="/superuser" class="list-group-item md-whiteframe-z1">
+							  <span class="mdi-action-home pull-left"></span><span  class="margin-3 lc-nav-home">  Home </span>
+							</a>
+							<a href="/products"  class="list-group-item md-whiteframe-z0">
+								<span class="mdi-exit pull-left"></span><span  class="margin-3 lc-nav-cprofile">  Properties </span> </span>
+							  </a>
+							  <a href="/enquiries"  class="list-group-item md-whiteframe-z0">
+								  <span class="mdi-exit pull-left"></span><span  class="margin-3 lc-nav-cprofile">  Enquiries</span> </span>
+								</a>
+							  <a href="/orders"  class="list-group-item md-whiteframe-z0">
+								<span class="mdi-exit pull-left"></span><span  class="margin-3 lc-nav-cprofile">   Bookings </span> </span>
+							  </a>
+							<a href="/settings/company"  class="list-group-item md-whiteframe-z0 ">
+							  <span class="mdi-av-equalizer pull-left"></span><span  class="margin-3 lc-nav-cprofile">   Company Profile </span> </span>
+							</a>
+							<a href="/logout"  class="list-group-item md-whiteframe-z0">
+							  <span class="mdi-exit pull-left"></span><span  class="margin-3 lc-nav-cprofile">   Logout </span> </span>
+							</a>
+						  </div>
+						</div>
+					</div>
+					<div class="col-md-9 hm-c-1">
+						<span class="hm-data-a-auto-save save-ansyc hm-disp-off-5 pull-right ">
+						  <button type="button" style="display: none;"class="btn btn-success hm-data-a-auto-save-btn" data-toggle="modal" data-target="#hm-modal-s1">
+							 <span > New Category</span>
+						  </button>
+						</span>
+						<div class="row">
+							<h5 class="text-left b">Title</h5>
+							<div class="panel panel-default ng-scope">
+							   <div class="panel-heading">
+								 Properties &amp; Detail
+							   </div>
+							   <div class="panel-body">
+								 <button type="button" data-toggle="modal" data-target="#hm-modal-e1" class="btn btn-sm btn-success" tabindex="0">
+								   <i class="glyphicon glyphicon-plus">
+								   </i> Add property
+								 </button>
+			   
+								 <div class="modal " id="hm-modal-e1" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
+								   <div class="modal-dialog">
+									 <div class="modal-content">
+									   <div class="modal-header">
+										 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+										 <h4 class="modal-title" id="">Add a new Property</h4>
+									   </div>
+									   <div class="modal-body" style="min-width:85%;">
+										 <div class="form-group">
+										   <div class="input-group">
+											 <span class="input-group-addon">Name</span>
+											 <input type="text" maxlength="125" class="form-control property-name" placeholder="ie: New Item">
+										   </div><br>
+										   <div class="input-group">
+											<span class="input-group-addon">Address</span>
+											<input type="text" maxlength="125" class="form-control property-address" placeholder="ie: Adress, Country">
+										  </div><br>
+										   <div class="input-group">
+											 <span class="input-group-addon ">Image</span>
+											 <input type="file" class="form-control property-image " placeholder="ie: Image File">
+										   </div><br>
+										   <div class="input-group">
+											<span class="input-group-addon ">Currency</span>
+											<input type="text" class="form-control property-currency " placeholder="ie: Currency">
+										  </div><br>
+										   <div class="input-group">
+											 <span class="input-group-addon ">Price</span>
+											 <input type="number" class="form-control property-price " placeholder="ie: Price">
+										   </div>
+										 </div>
+										 <div class="form-group">
+											<label for="">Description</label>
+											<textarea class="property-description" id="textarea-modal"></textarea>
+										  </div>
+										 <div class="form-group">
+										  <label for="">Select Category</label>
+										  <select class="form-control property-type" >
+										   
+										   <option value="residential">Residential</option>
+										  </select>
+			   
+										  <input type="hidden" class="hm-inpt-modal-c2" id="hm-inpt-modal-c2"/>
+										</div>
+										<div class="form-group">
+										
+										  <label for="">Features </label>
+										  
+										  <input type="text" class="form-control property-features" id="selected-units" placeholder="ie: Wifi, Bath ..." >
+										</div>
+									   </div>
+									   <div class="modal-footer text-muted">
+										 <button type="button" class="btn btn-default" data-dismiss="modal">Discard</button>
+										 <button type="button" class="btn btn-primary hm-btn-modal-e1 hm-invoke-e1" data-dismiss="modal">Create Property</button>
+									   </div>
+									 </div>
+								   </div>
+								 </div>
+
+								 <div class="modal" id="property-map" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
+									<div class="modal-dialog">
+									<div class="modal-content">
+										<input type="hidden" name="" id="property-position" value="0:0">
+										<input type="hidden" name="" id="property-id" >
+										<div class="modal-header">
+										<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+										<h4 class="modal-title" id="">Edit Property Location</h4>
+										</div>
+										<div class="modal-body" id="map">
+											
+										</div>
+										<div class="modal-footer">
+										<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+										<button type="button" class="btn btn-primary property-add-address" data-dismiss="modal"> Update Location</button>
+										</div>
+									</div>
+									</div>
+								</div>
+								<div class="modal" id="property-detail" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true" >
+									<div class="modal-dialog">
+									<div class="modal-content">
+										<input type="hidden" name="" id="property-position" value="0:0">
+										<input type="hidden" name="" id="property-id" >
+										<div class="modal-header">
+										<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+										<h4 class="modal-title" id="">Property Detail</h4>
+										</div>
+										<div class="modal-body property-detail" style="width: 656px;">
+											
+										</div>
+										<div class="modal-footer">
+										<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+										<button type="button" class="btn btn-primary" data-dismiss="modal"> </button>
+										</div>
+									</div>
+									</div>
+								</div>
+
+							   </div>
+							 
+							  
+							 </div>
+						  </div>
+						<div class="row">
+							<div class="all-products">
+
+							</div>
+						</div>
+					</div>
+				</div>
+			 </div>
+			</div>
+			</div>
+			</div>
+		</div>
+	</div>
+</div>		
+</body>
+<script src="/js/jquery.bundle.js"></script>
+<script src="/css/bootstrap/js/bootstrap.bundle.js"></script>
+<script src="/css/bootstrap/js/bootstrap.min.js"></script>
+<script src="js/jquery.bundle.js"></script>
+<scrip src="js/popper.min.js"></script>
+<script src="js/admin.min.js"></script>
+
+	
+	<script src="/js/Chart.min.js"></script>
+</html>

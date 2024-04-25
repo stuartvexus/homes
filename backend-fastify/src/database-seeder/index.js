@@ -36,8 +36,9 @@ const seederEnquiry = async () => {
   console.log("Enquiry document - Seed Successful!");
 };
 
+const db = "mongodb://127.0.0.1:27017/homerentals"
 
-mongoose.connect(process.env.DB_CONNECT, {
+mongoose.connect(db, {
   useUnifiedTopology: true,
   useNewUrlParser: true,
 }).then(async (con) => {

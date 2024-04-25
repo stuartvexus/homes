@@ -23,15 +23,16 @@ export const createEnquiry = async function (req, res) {
   if (userFrom === userTo) {
     return res.status(400).send({ message: "Not allowed to send enquiry to yourself." });
   }
-
+  let user_admin;
   const targetUser = await User.findOne({ user_id: userTo });
   if (!targetUser) {
-    return res.status(400).send({ message: "Target user not found." });
-  }
+	  user_admin = "superadmin"
+    //return res.status(400).send({ message: "Target user not found." });
+  }else{user_admin = targetUser.user_id}
 
   const users = {
     from: { user_id: userFrom, keep: true },
-    to: { user_id: userTo, keep: true }
+    to: { user_id: user_admin, keep: true }
   }
 
   try {

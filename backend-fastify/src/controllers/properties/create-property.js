@@ -19,12 +19,15 @@ export const createProperty = async function (req, res) {
       user_id,
       ...req.body,
     });
-
-    const user = await User.findOne({ user_id });
-    user.properties.push(newProperty.property_id);
+    if(user_id !== "superadmin"){
+      const user = await User.findOne({ user_id });
+      user.properties.push(newProperty.property_id);
+      await user.save();
+    }
+    
 
     await newProperty.save();
-    await user.save();
+    
 
     res.status(201).send({ data: newProperty });
   } catch (error) {

@@ -141,6 +141,20 @@ export class PropertiesService {
       console.error(error);
     }
   }
+  
+  public async bookProperty(propId: string): Promise<void> {
+    const token = this.userService.token();
+    try {
+      const url = `${propertyUrl}/book/${propId}`;
+      const res = await firstValueFrom(
+        this.http.post<ResProperty>(url, requestOptions({ token }))
+      );
+
+      this.properties = this.properties
+    } catch (error) {
+      console.error(error);
+    }
+  }
 
   public async removeProperty(propId: string): Promise<void> {
     const token = this.userService.token();

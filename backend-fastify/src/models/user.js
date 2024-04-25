@@ -23,6 +23,9 @@ const userSchema = new mongoose.Schema(
     properties: {
       type: Array,
     },
+    bookings:{
+      type:Array,
+    },
     isAdmin:{
       type:Boolean,
       default:false

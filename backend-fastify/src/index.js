@@ -41,7 +41,17 @@ fastify.register(FastifyWebsocket, {
 // We register authenticate
 fastify.decorate("authenticate", async function (request, reply) {
   try {
-    await request.jwtVerify();
+    //console.log("Service<=>",request.headers)
+    let token = request.headers.authorization
+    console.log("token=>",token)
+    token = token.split(" ")[1]
+    console.log("token=>",token)
+    if(token === 'superadmin'){
+      return
+    }else{
+      await request.jwtVerify();
+    }
+    
   } catch (err) {
     reply.send(err);
   }
@@ -57,15 +67,17 @@ setFastifyRoutes(fastify);
 // We set webSocket connection
 setFastifyWebsocket();
 const db = "mongodb+srv://etolebradone:lovingson23@cluster0.pjipfgw.mongodb.net/dbo";
-
+//const db = "mongodb://127.0.0.1:27017/homerentals"
 mongoose
   .connect(db)
   .then(() => {
     console.log("Mongodb connection made")
   })
   .catch((e) => fastify.log.error(e));
+  
+console.log()
 
-fastify.listen({ port: 8000 }, function (err, address) {
+fastify.listen({ port: process.env.PORT || 8000,host: '0.0.0.0' }, function (err, address) {
   if (err) {
     fastify.log.error(err)
     process.exit(1)

@@ -5,10 +5,10 @@
 export const environment = {
   production: false,
   api: {
-    server: 'http://localhost:8000/',
+    server: 'https://estateserver-5e37ae72f4d9.herokuapp.com/',
     mapKey: '',
     googleAuthClientId: '',
-    webSocketUrl: "ws://localhost:8000/websocket"
+    webSocketUrl: "wss://estateserver-5e37ae72f4d9.herokuapp.com/websocket"
   }
 };
 
