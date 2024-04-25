@@ -104,8 +104,7 @@
         <ion-col size="12" sizeXl="4">
           <div class="mortgage-container">
             <app-mortgage-core-calc
-              [simpleMode]="true"
-              [boxShadow]="false"
+              (book)="bookLocation()"
             ></app-mortgage-core-calc>
 
             <ion-card class="find-map-card">

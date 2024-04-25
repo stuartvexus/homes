@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html version="2.41.3">
+  <head>
+    <meta charset="utf-8" />
+
+    <title></title>
+    <meta name="description" content="" />
+    <meta property="og:title" content="" />
+    <meta property="og:description" content="" />
+    <meta property="og:image" content="" />
+
+    <link rel="apple-touch-icon" sizes="180x180" href="" />
+    <link rel="icon" type="image/png" sizes="32x32" href="" />
+    <link rel="icon" type="image/png" sizes="16x16" href="" />
+    <link rel="manifest" href="" />
+    <link rel="mask-icon" href="" />
+    <link rel="shortcut icon" href="" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Fira+Sans:wght@100;200;300;400;500;600&subset=cyrillic&display=swap"
+    />
+    <meta name="msapplication-TileColor" content="" />
+    <meta name="msapplication-config" content="" />
+    <meta name="theme-color" content="" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui"
+    />
+    <base href="/" />
+    <style>
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        background-color: #f3f5f8;
+        color: #768191;
+        font-family: 'Fira Sans', sans-serif;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      body.theme_dark {
+        background-color: #1d2329;
+      }
+
+      .loader {
+        padding: 20px 30px;
+        white-space: nowrap;
+      }
+
+      .loader_screen {
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+      }
+
+      .loader:after {
+        content: '';
+        display: inline-block;
+        height: 100%;
+        vertical-align: middle;
+      }
+
+      .loader__inner {
+        display: inline-block;
+        width: 100%;
+        vertical-align: middle;
+        white-space: normal;
+      }
+
+      .loader__content {
+        text-align: center;
+      }
+
+      .loader__title {
+        font-size: 21px;
+        font-weight: 400;
+        color: #1e1f22;
+        text-align: center;
+        margin-top: 20px;
+      }
+
+      .theme_dark .loader__title {
+        color: #fff;
+      }
+
+      .loader__description {
+        font-size: 14px;
+        margin-top: 8px;
+      }
+
+      .spinner-pulse {
+        width: 40px;
+        height: 40px;
+        margin: 0 auto;
+        background: #aaa;
+        border-radius: 100%;
+        -webkit-animation: spinnerPulse 1s infinite ease-in-out;
+        animation: spinnerPulse 1s infinite ease-in-out;
+      }
+
+      @-webkit-keyframes spinnerPulse {
+        0% {
+          -webkit-transform: scale(0);
+          transform: scale(0);
+        }
+
+        100% {
+          -webkit-transform: scale(1);
+          transform: scale(1);
+          opacity: 0;
+        }
+      }
+
+      @keyframes spinnerPulse {
+        0% {
+          -webkit-transform: scale(0);
+          transform: scale(0);
+        }
+
+        100% {
+          -webkit-transform: scale(1);
+          transform: scale(1);
+          opacity: 0;
+        }
+      }
+
+      .spinner-double-pulse {
+        width: 40px;
+        height: 40px;
+        position: relative;
+        margin: 0 auto;
+      }
+
+      .spinner-double-pulse__pulse1,
+      .spinner-double-pulse__pulse2 {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        background-color: #aaa;
+        opacity: 0.6;
+        -webkit-animation: spinnerDoublePulse 2s infinite ease-in-out;
+        animation: spinnerDoublePulse 2s infinite ease-in-out;
+        -webkit-animation-delay: -0.5s;
+        animation-delay: -0.5s;
+      }
+
+      .spinner-double-pulse__pulse2 {
+        -webkit-animation-delay: -1.5s;
+        animation-delay: -1.5s;
+      }
+
+      @-webkit-keyframes spinnerDoublePulse {
+        0%,
+        100% {
+          -webkit-transform: scale(0);
+          transform: scale(0);
+        }
+
+        50% {
+          -webkit-transform: scale(1);
+          transform: scale(1);
+        }
+      }
+
+      @keyframes spinnerDoublePulse {
+        0%,
+        100% {
+          -webkit-transform: scale(0);
+          transform: scale(0);
+        }
+
+        50% {
+          -webkit-transform: scale(1);
+          transform: scale(1);
+        }
+      }
+    </style>
+  <link rel="stylesheet" href="https://cdn-app.jetadmin.app/v2.41.3/styles.170d683ca584da3736dc.css"></head>
+  <body>
+    <script>
+      const parts = window.location.pathname.split('/').slice(1);
+      const inner =
+        parts[0] == 'app' ||
+        (parts[0].startsWith('v') && parts[1] == 'app') ||
+        parts[0] == 'builder' ||
+        (parts[0].startsWith('v') && parts[1] == 'builder') ||
+        parts[0] == 'demo';
+      const darkTheme = inner && localStorage['theme'] == 'dark';
+
+      function addClass(element, className) {
+        element.className += ' ' + className;
+      }
+
+      if (darkTheme) {
+        addClass(document.body, 'theme_dark');
+      } else {
+        addClass(document.body, 'theme_default');
+      }
+    </script>
+    <app-preloader>
+      <div class="loader loader_screen">
+        <div class="loader__inner">
+          <div class="spinner-pulse"></div>
+        </div>
+      </div>
+    </app-preloader>
+    <app-root></app-root>
+  <script type="text/javascript">
+    window['APP_ENV'] = {
+      WEB_BASE_URL: 'https://app.jetadmin.io',
+      SUBDOMAINS_BASE_DOMAIN: 'jetadmin.io',
+      SERVER_BASE_URL: 'https://cdn-api.jetadmin.app',
+      SERVER_DIRECT_BASE_URL: 'https://api.jetadmin.io',
+      SERVER_NODE_BASE_URL: 'https://cdn-api-node.jetadmin.app',
+      SERVER_NODE_DIRECT_BASE_URL: 'https://api-node.jetadmin.io',
+      DATA_SYNC_BASE_URL: 'https://cdn-data-sync-api.jetadmin.app',
+      WORKFLOWS_BASE_URL: 'https://cdn-workflows-api.jetadmin.app',
+      DATA_SOURCES_BASE_URL: 'https://data.jetadmin.app',
+      DATA_SOURCES_DIRECT_BASE_URL: 'https://data.jetadmin.io',
+      JET_BRIDGE_CLOUD_BASE_URL: 'https://cloud.jetadmin.io/api/',
+      CENTRIFUGO_URL: 'wss://app.jetadmin.io:8001/connection/websocket',
+      RAVEN_DSN: 'https://d85186ef454d4c698f68cc38e4d5a9cd@o229361.ingest.sentry.io/1314098',
+      AIRTABLE_API_KEY: 'pathnp1rmM7u8roEJ.27fefaa9a78eed9dc8c9914286b04b7b36e775b7b59ac6244dc1d328e02c2984',
+      PADDLE_VENDOR_ID: '35675',
+      PADDLE_SANDBOX: '0',
+      SOCIAL_AUTH_FACEBOOK_ENABLED: '1',
+      SOCIAL_AUTH_GOOGLE_ENABLED: '1',
+      JET_BRIDGE_REGIONS: '1',
+      GOOGLE_TAG_MANAGER: 'GTM-WGGWW7N',
+      DEFAULT_EMAIL_FROM: 'no-reply@jetadmin.app',
+      SNAPSHOTS_ENABLED: 'true',
+      DEPLOYMENT_TYPE_ENABLED: '1'
+    };
+  </script>
+  <script type="text/javascript" src="https://cdn-app.jetadmin.app/v2.41.3/runtime.f5020b2e7daf53e63cfb.js"></script><script type="text/javascript" src="https://cdn-app.jetadmin.app/v2.41.3/polyfills.101469973b40ced71988.js"></script><script type="text/javascript" src="https://cdn-app.jetadmin.app/v2.41.3/scripts.28e29befda734578f546.js"></script><script type="text/javascript" src="https://cdn-app.jetadmin.app/v2.41.3/main.373d3def3327d070de00.js"></script></body>
+</html>

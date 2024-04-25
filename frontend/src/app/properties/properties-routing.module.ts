@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { PropertiesDetailComponent } from './properties-detail/properties-detail.component';
+import { PropertiesPayComponent } from './properties-pay/properties-pay.component';
 
 import { PropertiesPage } from './properties.page';
 
@@ -12,6 +13,10 @@ const routes: Routes = [
   {
     path: ':id',
     component: PropertiesDetailComponent
+  },
+  {
+    path: ':id/pay',
+    component: PropertiesPayComponent
   }
 ];
 

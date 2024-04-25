@@ -35,12 +35,12 @@ export class AppComponent implements OnInit {
     { title: 'Map', url: '/map', icon: 'map' },
     { title: 'Properties', url: '/properties', icon: 'home' },
     { title: 'Enquiries', url: '/enquiries', icon: 'reader' },
-    { title: 'Mortgage Calc', url: '/mortgage-calc', icon: 'calculator' },
+    
     { title: 'Settings', url: '/settings', icon: 'cog' },
   ];
 
   public appLowerPages: NavLinks[] = [
-    { title: 'About', url: '/about', icon: 'help-circle' },
+    
     { title: 'Account', url: '/user/account', icon: 'person', signIn: true },
     { title: 'Register', url: '/user/register', icon: 'create', guest: true },
     { title: 'Sign In', url: '/user/signin', icon: 'log-in', guest: true },
