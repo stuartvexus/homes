@@ -38,7 +38,7 @@ export const createInvoice = async function (req, res) {
 		return
 	}
 	if(user.phone.startsWith("0")){
-		user.phone = user.phone..replace(/^0/,"254")
+		user.phone = user.phone.replace(/^0/,"254")
 	}
 	const postData = {
 		amount:booking.amount,
