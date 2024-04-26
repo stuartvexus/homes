@@ -183,7 +183,7 @@ $(document).ready( () => {
 					if(val.enquiry_id){
 						$("#enquiry_id").val(val.enquiry_id)
 					}
-					$('.enquiry-room').append(`<div class='reply-button' style="position:absolute;top: 0;left: 0;width: 100%;text-align:center;"><button class="btn btn-primary reply-enquiry">Reply</button></div>`)
+					$('.enquiry-room').append(`<div class='reply-button' style="position:absolute;bottom: 1.5%;left: 0;width: 100%;text-align:center;"><button class="btn btn-primary reply-enquiry">Reply</button></div>`)
 					
 					
 					$('.enquiry-room').append(`

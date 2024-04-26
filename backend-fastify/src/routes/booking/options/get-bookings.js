@@ -1,21 +1,23 @@
 import { bookingProperties } from "./schema.js";
 import { responseSuccess, responseError } from "../../../utils/schema/response.js";
 
-export const getBookingOpts = (handler) => ({
+export const getBookingOpts = (fastify,handler) => ({
+  preValidation: [fastify.authenticate],
   schema: {
     response: {
       200: responseSuccess({ data: bookingProperties }),
       400: responseError(),
       404: responseError({
         status: 404,
-        message: "Error: Property not found!",
+        message: "Error: Book not found!",
       }),
     },
   },
   handler: handler,
 });
 
-export const getBookingsOpts = (handler) => ({
+export const getBookingsOpts = (fastify,handler) => ({
+  preValidation: [fastify.authenticate],
   schema: {
     response: {
       200: responseSuccess({
