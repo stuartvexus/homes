@@ -21,7 +21,7 @@ import {
   } from "../../controllers/bookings/index.js";
   
   export const bookRoutes = function (fastify, opts, done) {
-    fastify.get("/all/bookings", getBookingsOpts(getBookings));
+    fastify.get("/", getBookingsOpts(fastify,getBookings));
     fastify.get("/income/all", getIncomeOpts(getInvoices));
     fastify.get("/income/user/:id", getIncomeOpts(getUserInvoice));
     fastify.get("/income/:id", getIncomeOpts(getInvoice));

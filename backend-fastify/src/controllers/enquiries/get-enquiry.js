@@ -1,4 +1,5 @@
 import { Enquiry } from "../../models/enquiry.js";
+import { User } from "../../models/user.js";
 
 export const getEnquiry = async function (req, res) {
   const { id } = req.params;

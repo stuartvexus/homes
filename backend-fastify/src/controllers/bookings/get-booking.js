@@ -21,6 +21,8 @@ export const getBookings = async function (req, res) {
   
   try {
     const bookings = await Booking.find().sort({createdAt:-1});
+	res.status(200).send({ data: property });
+	return
 	let property= []
 	for(var book of bookings){
 		const r = {}
