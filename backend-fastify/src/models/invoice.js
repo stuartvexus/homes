@@ -10,6 +10,8 @@ const invoiceSchema = new mongoose.Schema(
     complete:{type:Boolean,default:false},
     due:{type:Date,default:null},
     amount:{type:Number},
+	merchantRequestId:{type:String},
+	checkoutRequestId:{type:String},
   },
   {
     timestamps: true,

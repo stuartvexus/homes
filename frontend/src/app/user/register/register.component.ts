@@ -30,11 +30,12 @@ export class RegisterComponent implements OnInit {
       {
         fullName: ['', [Validators.required, Validators.minLength(4)]],
         email: ['', [Validators.required, customValidators.emailValidation()]],
+		phone: ['', [Validators.required, Validators.minLength(10)]],
         password: [
           '',
           [
             Validators.required,
-            Validators.minLength(8),
+            Validators.minLength(6),
             this.customValidators.patternValidator(/\d/, { hasNumber: true }),
             this.customValidators.patternValidator(/[A-Z]/, {
               hasCapitalCase: true,
@@ -70,8 +71,8 @@ export class RegisterComponent implements OnInit {
     const loading = await this.presentLoading();
     loading.present();
 
-    const { fullName, email, password } = this.registerForm.value;
-    const result = await this.user.register(fullName, email, password);
+    const { fullName, email,phone, password } = this.registerForm.value;
+    const result = await this.user.register(fullName, email,phone, password);
     if (!result.error) {
       loading.dismiss();
       await this.showToast('Success, registration is complete.');

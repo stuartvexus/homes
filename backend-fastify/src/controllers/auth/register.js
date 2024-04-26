@@ -3,14 +3,15 @@ import { fastify } from "../../index.js";
 import { User } from "../../models/user.js";
 
 export const register = async function (req, res) {
-  const { fullName, email, password } = req.body;
-  if (fullName && email && password) {
+  const { fullName, email,phone, password } = req.body;
+  if (fullName && email && password && phone) {
     try {
       const hashedPassword = await fastify.bcrypt.hash(password);
       const newUser = new User({
         user_id: uuidv4(),
         fullName,
         email: email.toLowerCase(),
+		phone:phone,
         password: hashedPassword,
       });
       const { user_id } = await newUser.save();
