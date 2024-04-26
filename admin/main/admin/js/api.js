@@ -108,6 +108,7 @@ $(document).ready( () => {
 				
 				$('.all-orders').empty();
 				$.each(data.data,  (key, val) => {
+					console.log("order",val)
 					$('.all-orders').append( `
 						<tr>
 							<td>2</td>
