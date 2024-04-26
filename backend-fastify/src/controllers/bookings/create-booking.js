@@ -16,7 +16,7 @@ export const createBooking = async function (req, res) {
   const user_id = userIdToken(token);
 
   try {
-    const property = await Property.findById(id)
+    const property = await Property.findOne({property_id:id})
     if(!property){
       res.status(400).send({ message: "Error: Property location no longer exists." });
       return;
@@ -25,7 +25,8 @@ export const createBooking = async function (req, res) {
       booking_id: uuidv4(),
       property_id:id,
 	  amount:property.price,
-	  fullName: name,
+	  fullName: name ? name : "User",
+	  
       user_id,
       ...req.body,
     });

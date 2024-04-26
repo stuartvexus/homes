@@ -5,7 +5,7 @@ const bookingSchema = new mongoose.Schema(
   {
     booking_id:{type:String,required:true},
     name:{type:String},
-    phone:{type:String,required:true},
+    phone:{type:String},
     email: { type: String },
     read: { type: Boolean, default: false },
     property_id: {type:String,required:true},

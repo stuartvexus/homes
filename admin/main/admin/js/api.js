@@ -99,7 +99,7 @@ $(document).ready( () => {
 	}
 	
 	Service.Orders =  () => {
-		$.getJSON(Path.gate('/book',null,'/'),  (data) => {
+		$.getJSON(Path.gate('/book',null,'/all/bookings'),  (data) => {
 			console.log("order=>",data)
 			if (jQuery.isEmptyObject(data)) {
 				 //console.log('yes');
@@ -111,7 +111,7 @@ $(document).ready( () => {
 					$('.all-orders').append( `
 						<tr>
 							<td>2</td>
-							<td><a href="#"><img src="/assets/images/avatar/1.jpg" class="avatar" alt="Avatar"> Paula Wilson</a></td>
+							<td><a href="#"><img src="/assets/images/avatar/1.jpg" class="avatar" alt="Avatar"> ${val.fullName}</a></td>
 							<td>${val.name}</td>                       
 							<td>${val.createdAt}</td>
 							<td><span class="status text-info">&bull;</span> ${val.status}</td>
