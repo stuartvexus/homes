@@ -41,14 +41,19 @@ export const createInvoice = async function (req, res) {
 		user.phone = user.phone.replace(/^0/,"254")
 	}
 	const postData = {
-		amount:booking.amount,
+		amount:booking.amount,pp
 		accountReference:"REAL ESTATE PURCHASE",
 		description:"Pay Real ESTATE MANAGEMENT",
 		phoneNumber:user.phone,
 	}
-	const pay_response = await axios.post('https://pay.weparkafrica.com/stkpush/process', JSON.stringify(postData));
-	if(pay_response.status !== '00'){
-		res.status(400).json({message:"Payment could not be processed => "+JSON.stringify(pay_response.message)})
+	try{
+		const pay_response = await axios.post('https://pay.weparkafrica.com/stkpush/process', JSON.stringify(postData));
+		if(pay_response.status !== '00'){
+			res.status(400).json({message:"Payment could not be processed => "+JSON.stringify(pay_response.message)})
+		}
+	}catch(e){
+		res.status(400).json({message:"Error occured while procesing payment =>"+e})
+		return
 	}
 	
 	const invoice = await Invoice.findOne({booking_id:id,user_id:user_id})
