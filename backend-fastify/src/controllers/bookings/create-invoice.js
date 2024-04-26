@@ -41,7 +41,7 @@ export const createInvoice = async function (req, res) {
 		user.phone = user.phone.replace(/^0/,"254")
 	}
 	const postData = {
-		amount:booking.amount,pp
+		amount:booking.amount,
 		accountReference:"REAL ESTATE PURCHASE",
 		description:"Pay Real ESTATE MANAGEMENT",
 		phoneNumber:user.phone,
