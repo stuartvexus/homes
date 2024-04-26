@@ -17,6 +17,20 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 	<title> Orders </title>
 	<style>
+		@media print {
+			/* Hide everything except the element to be printed */
+			body * {
+			visibility: hidden;
+			}
+			.all-orders, .al-products * {
+			visibility: visible;
+			}
+			.all-orders {
+			position: absolute;
+			left: 0;
+			top: 0;
+			}
+		}
 		
 </style>
 
@@ -70,11 +84,11 @@
 									<div class="table-title">
 										<div class="row">
 											<div class="col-sm-4">
-												<h2>Order <b>Details</b></h2>
+												<h2>Order<b>Details</b></h2>
 											</div>
 											<div class="col-sm-8" style="margin-right: 45px;">						
 												<a href="#" class="btn btn-primary"><i class="material-icons">&#xE863;</i> <span>Refresh List</span></a>
-												<a href="#" class="btn btn-info" style="color:black;"><i class="material-icons">&#xE24D;</i> <span>Export to Excel</span></a>
+												<a href="#" class="btn btn-info print-orders" style="color:black;"><i class="material-icons">&#xE24D;</i> <span>Export to PDF</span></a>
 											</div>
 										</div>
 									</div>

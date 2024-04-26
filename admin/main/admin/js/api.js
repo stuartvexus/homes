@@ -13,7 +13,8 @@ function hcr(name) {
 $(document).ready( () => {
 	// show current year
 	
-	var fetched_subjects = [];
+	var fetched_users = [];
+	var fetched_houses = [];
 
 	
 	Service.Products =  () => {
@@ -27,6 +28,7 @@ $(document).ready( () => {
 			console.log("properties=>",data)
  		    $('.all-products').empty();
 				$.each(data.data,  (key, val) => {
+					fetched_houses.push({id:val.property_id,name:val.name})
 					console.log("position",val.position)
 					$('.all-products').append(`
 					<div class="kanban-board-column ng-star-inserted" style="max-width: 245px;height: 244px;flex: auto;margin-left: 9px;margin-top:9px;">
@@ -100,7 +102,7 @@ $(document).ready( () => {
 	
 	Service.Orders =  () => {
 
-		$.getJSON(Path.gate('/book',null,'/'),  (data) => {
+		$.getJSON(Path.gate('/orders',null,'/'),  (data) => {
 
 			console.log("order=>",data)
 			if (jQuery.isEmptyObject(data)) {
@@ -110,16 +112,25 @@ $(document).ready( () => {
 				
 				$('.all-orders').empty();
 				$.each(data.data,  (key, val) => {
-
+					for(var h of fetched_houses){
+						if(h.id === val.property_id){
+							val.property_name = h.name
+						}
+					}
+					for(var u of fetched_users){
+						if(u.id === val.user_id){
+							val.user_name = u.name
+						}
+					}
 					$('.all-orders').append( `
 						<tr>
 							<td>2</td>
-							<td><a href="#"><img src="/assets/images/avatar/1.jpg" class="avatar" alt="Avatar"> ${val.fullName}</a></td>
-							<td>${val.name}</td>                       
-							<td>${val.createdAt}</td>
+							<td><a href="#"><img src="/assets/images/avatar/1.jpg" class="avatar" alt="/assets/images/avatar/1.jpg"> ${val.user_name}</a></td>
+							<td>${val.property_name}</td>                       
+							
 							<td><span class="status text-info">&bull;</span> ${val.status}</td>
-							<td>${val.fullName}</td>
-							<td><a href="javascript:void(0)" onclick="Service.updateOrder('${val.booking_id}', ${val.accepted})" class="view update-order" title="Accept/Reject" data-toggle="tooltip"><i class="material-icons">&#xE5C8;</i></a></td>
+							
+							<td><a href="javascript:void(0)" onclick="Service.updateOrder('${val.booking_id}', ${val.accepted})" class="view update-order" title="Accept/Reject" data-toggle="tooltip">${val.accepted ? "Cancel" : "Accept"}<i class="material-icons">&#xE5C8;</i></a></td>
 						</tr>
 					`);
 				 });
@@ -159,6 +170,7 @@ $(document).ready( () => {
 				
 				$('.all-users').empty();
 				$.each(data.data,  (key, val) => {
+					fetched_users.push({id:val.user_id,name:val.fullName})
 					$('.all-users').append( `
 						${JSON.stringify(val)}
 					`);
@@ -253,7 +265,7 @@ $(document).ready( () => {
 		});
 	}
 	Service.Enquiries();
-	console.log(fetched_subjects)
+	//console.log(fetched_subjects)
 })
 
 function hm_v_s_units(x,y,z) {
