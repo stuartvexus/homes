@@ -99,7 +99,9 @@ $(document).ready( () => {
 	}
 	
 	Service.Orders =  () => {
-		$.getJSON(Path.gate('/book',null,''),  (data) => {
+
+		$.getJSON(Path.gate('/book',null,'/'),  (data) => {
+
 			console.log("order=>",data)
 			if (jQuery.isEmptyObject(data)) {
 				 //console.log('yes');
@@ -108,7 +110,7 @@ $(document).ready( () => {
 				
 				$('.all-orders').empty();
 				$.each(data.data,  (key, val) => {
-					
+
 					$('.all-orders').append( `
 						<tr>
 							<td>2</td>
@@ -224,10 +226,11 @@ $(document).ready( () => {
 				// $('.all-enquiries').empty();
 			}else{
 				
-				//$('.all-enquiries').empty();
+				$('.all-enquiries').empty();
 				$.each(data.data,  (key, val) => {
+					console.log(val)
 					$('.all-enquiries').append( `
-						<li class="p-2 border-bottom" oncclick="Service.enquiryRoom('${val.enquiry_id}')">
+						<li class="p-2 border-bottom" onclick="Service.enquiryRoom('${val.enquiry_id}')">
 							<a href="#!" class="d-flex justify-content-between">
 							  <div class="d-flex flex-row">
 								<div>
@@ -237,7 +240,7 @@ $(document).ready( () => {
 								  <span class="badge bg-success badge-dot"></span>
 								</div>
 								<div class="pt-1">
-								  <p class="fw-bold mb-0">${val.userFrom}</p>
+								  <p class="fw-bold mb-0">${val.email}</p>
 								  <p class="small text-muted">${val.title}</p>
 								</div>
 							  </div>

@@ -26,7 +26,6 @@ import { PropertiesCurrentImagesComponent } from './properties-uploads-modal/pro
     PropertiesPageRoutingModule,
     SharedModule,
     EnquiriesPageModule,
-    MortgageCalcPageModule,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   declarations: [
@@ -36,13 +35,10 @@ import { PropertiesCurrentImagesComponent } from './properties-uploads-modal/pro
     PropertiesCardComponent,
     PropertiesDetailComponent,
     PropertiesEditComponent,
-    PropertiesCoordinatesComponent,
-    PropertiesUploadsComponent,
-    PropertiesGalleryComponent,
-    PropertiesCurrentImagesComponent
+   
   ],
   exports: [
     PropertiesListComponent,
   ]
 })
-export class PropertiesPageModule { }
+export class BookingsPageModule { }

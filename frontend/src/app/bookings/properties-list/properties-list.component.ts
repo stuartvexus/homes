@@ -4,7 +4,7 @@ import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { Property } from 'src/app/shared/interface/property';
 import { sortListByDate, sortListByName, sortListByNumber } from 'src/app/shared/utility';
-import { PropertiesService } from '../properties.service';
+import { PropertiesService } from '../bookings.service';
 import { PropertyType } from 'src/app/shared/enums/property';
 import { UserService } from 'src/app/user/user.service';
 

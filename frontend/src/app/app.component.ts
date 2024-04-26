@@ -34,6 +34,7 @@ export class AppComponent implements OnInit {
   public appPages: NavLinks[] = [
     { title: 'Map', url: '/map', icon: 'map' },
     { title: 'Properties', url: '/properties', icon: 'home' },
+    { title: 'Bookings', url: '/bookings', icon: 'home' },
     { title: 'Enquiries', url: '/enquiries', icon: 'reader' },
     
     { title: 'Settings', url: '/settings', icon: 'cog' },

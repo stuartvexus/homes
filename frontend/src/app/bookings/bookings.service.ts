@@ -61,9 +61,10 @@ export class PropertiesService {
   }
 
   public async fetchProperties(): Promise<void> {
+    const token = this.userService.token();
     try {
       this.properties = (
-        await firstValueFrom(this.http.get<ResProperties>(propertyUrl))
+        await firstValueFrom(this.http.get<ResProperties>(propertyUrl+"/user?token="+token,requestOptions({ token })))
       ).data;
     } catch (error) {
       console.error(error);
@@ -71,6 +72,7 @@ export class PropertiesService {
   }
 
   public async fetchProperty(id: string) {
+    
     try {
       this.property = (
         await firstValueFrom(this.http.get<ResProperty>(propertyUrl + '/' + id))

@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ModalController, ToastController } from '@ionic/angular';
 import { Property } from 'src/app/shared/interface/property';
-import { PropertiesService } from '../properties.service';
+import { PropertiesService } from '../bookings.service';
 
 @Component({
   selector: 'app-properties-uploads',

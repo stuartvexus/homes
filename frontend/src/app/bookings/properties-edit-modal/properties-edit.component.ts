@@ -4,7 +4,7 @@ import { ModalController, ToastController } from '@ionic/angular';
 import { PropertyType } from 'src/app/shared/enums/property';
 import { Property } from 'src/app/shared/interface/property';
 import { PropertiesCoordinatesComponent } from '../properties-coordinates-modal/properties-coordinates.component';
-import { PropertiesService } from '../properties.service';
+import { PropertiesService } from '../bookings.service';
 
 @Component({
   selector: 'app-properties-edit',
