@@ -1,8 +1,14 @@
 import { Property } from "../../models/property.js";
 import { Booking } from "../../models/book.js";
+import { authBearerToken } from "../../utils/requests.js";
+import { userIdToken } from "../../utils/users.js";
 
 export const getBooking = async function (req, res) {
   const { id } = req.params;
+  if(!id){
+	res.status(400).json({message:"No Id"})
+		return
+  }
   try {
     const property = await Booking.findOne({ booking_id: id });
     res.status(200).send({ data: property });
@@ -20,9 +26,12 @@ export const getBookings = async function (req, res) {
 		const r = {}
 		r.booking = book
 		const user = await User.findById(book.user_id).select("-password")
-		const house = await Property.findById(book.property_id)
+		if(book.property_id){
+			const house = await Property.findById(book.property_id)
+			r.property = house
+		}
 		r.user = user
-		r.property = house
+		
 		property.push(r)
 	}
     res.status(200).send({ data: property });
@@ -32,9 +41,11 @@ export const getBookings = async function (req, res) {
 };
 
 export const getUserBookings = async function (req, res) {
-  const {user} = req.params 
+	const token = authBearerToken(req);
+  const user_id = userIdToken(token);
+  
   try {
-    const property = await Booking.find({user_id:user}).sort({createdAt:-1});
+    const property = await Booking.find({user_id:user_id}).sort({createdAt:-1});
     res.status(200).send({ data: property });
   } catch (error) {
     res.status(404).send({});
