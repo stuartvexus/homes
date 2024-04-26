@@ -22,11 +22,11 @@ import {
   
   export const bookRoutes = function (fastify, opts, done) {
     fastify.get("/", getBookingsOpts(fastify,getBookings));
-    fastify.get("/income/all", getIncomeOpts(getInvoices));
-    fastify.get("/income/user/:id", getIncomeOpts(getUserInvoice));
-    fastify.get("/income/:id", getIncomeOpts(getInvoice));
-    fastify.get("/user", getBookingsOpts(getUserBookings));
-    fastify.get("/:id", getBookingOpts(getBooking));
+    fastify.get("/income/all", getIncomeOpts(fastify,getInvoices));
+    fastify.get("/income/user/:id", getIncomeOpts(fastify,getUserInvoice));
+    fastify.get("/income/:id", getIncomeOpts(fastify,getInvoice));
+    fastify.get("/user", getBookingsOpts(fastify,getUserBookings));
+    fastify.get("/:id", getBookingOpts(fastify,getBooking));
     //fastify.post("/", createBookingOpts(fastify, createBooking));
 	fastify.post("pay/:id", createInvoiceOpts(fastify, createInvoice));
     fastify.post("/:id", createBookingOpts(fastify, createBooking));
