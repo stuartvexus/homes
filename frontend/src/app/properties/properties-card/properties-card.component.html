@@ -5,12 +5,12 @@
 
   <img
     class="profile-image"
-    [src]="property?.images[0]"
+    [src]="generateImageUrl(property?.images[0])"
     *ngIf="property?.images?.length"
   />
   <img
     class="profile-image ion-padding-vertical"
-    [src]="https://estateserver-5e37ae72f4d9.herokuapp.com/'assets/images/no-image.jpeg'"
+    [src]="'assets/images/no-image.jpeg'"
     *ngIf="!property?.images || !property?.images.length"
   />
 
