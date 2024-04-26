@@ -8,7 +8,7 @@ import { userIdToken } from "../../utils/users.js";
 export const createBooking = async function (req, res) {
   const { name, phone } = req.body;
   const {id} = req.params
-  if (!name || !phone ) {
+  if (!id ) {
     res.status(400).send({ message: "Error: Required fields are missing." });
     return;
   }

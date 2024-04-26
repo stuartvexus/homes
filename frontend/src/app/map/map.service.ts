@@ -11,7 +11,7 @@ export class MapService {
   constructor() { }
 
   addTiles(map: L.Map, isDark = false) {
-    const key = 'AIzaSyCP7KUVShMI1-MX-jmVhznpNAOK_za_N-o'//environment.api.mapKey;
+    const key = environment.api.mapKey;//AIzaSyBEMWRGDnjpOs-aPsph65S0Bhpxsxapjlo
     let mapTiles = `https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}{r}.png?api_key=${key}`;
     if (isDark) {
       mapTiles = `https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png?api_key=${key}`;

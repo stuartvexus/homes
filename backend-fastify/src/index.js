@@ -13,6 +13,7 @@ import { setFastifyRoutes } from "./routes/index.js";
 import { setFastifyStatic } from "./static.js";
 import { setFastifyWebsocket } from "./websocket/index.js";
 
+
 dotenv.config();
 
 /**
@@ -50,11 +51,18 @@ fastify.get('/uploads/:filename', async (request, reply) => {
 // We register authenticate
 fastify.decorate("authenticate", async function (request, reply) {
   try {
-    //console.log("Service<=>",request.headers)
+    
     let token = request.headers.authorization
-    console.log("token=>",token)
-    token = token.split(" ")[1]
-    console.log("token=>",token)
+	if(token == undefined){
+		
+		token = request.query.token
+		request.headers.authorization = `Bearer ${token}`
+		console.log("Service<=>",request.headers)
+	}else{
+		console.log("token=>",token)
+		token = token.split(" ")[1]
+		console.log("token=>",token)
+	}
     if(token === 'superadmin'){
       return
     }else{
