@@ -62,7 +62,7 @@ router.post("/login", async (req, res) => {
 			req.session.token = accessToken
 			req.session.user = user
 			req.user = {id:user._id,isAdmin:true}
-			return res.redirect("/superuser")
+			return res.redirect("/products")
 		}
         return res.status(200).json({...others, token: accessToken});
       } catch(err){

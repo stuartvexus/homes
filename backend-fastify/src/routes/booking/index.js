@@ -6,6 +6,7 @@ import {
     updateBookingOpts,
     deleteBookingOpts,
     getIncomeOpts,
+    getOrdersOpts,
   } from "./options/index.js";
   import {
     getUserBookings,
@@ -18,10 +19,11 @@ import {
     getInvoice,
     getUserInvoice,
     getInvoices,
+    getOrders,
   } from "../../controllers/bookings/index.js";
   
   export const bookRoutes = function (fastify, opts, done) {
-    fastify.get("/", getBookingsOpts(fastify,getBookings));
+    fastify.get("/", getBookings);
     fastify.get("/income/all", getIncomeOpts(fastify,getInvoices));
     fastify.get("/income/user/:id", getIncomeOpts(fastify,getUserInvoice));
     fastify.get("/income/:id", getIncomeOpts(fastify,getInvoice));
@@ -36,3 +38,7 @@ import {
     done();
   };
   
+  export const orderRoutes = (fastify,opts,done) =>{
+      fastify.get("/",getOrders);
+      done();
+  }

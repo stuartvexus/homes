@@ -47,7 +47,7 @@ $(document).ready( () => {
 										<div class="custom-element-view__fill ng-star-inserted" style="background: rgb(255, 255, 255); border-radius: 12px;">   
 											<div class="layer-container view-property" id='${val.property_id}' onclick="Service.showProperty('${val.property_id}')" data-target="#property-detail" data-toggle="modal">
 												<div class="rectangle-layer" style="border-radius: 12px 12px 0px 0px; opacity: 1;"><!---->
-													<div class="rectangle-layer__fill ng-star-inserted" style="background: url(&quot;https://api.jetadmin.io/media/static_files/projects/custom_crm_1495/properties/property2.jpg&quot;) center center / cover no-repeat; border-radius: 12px 12px 0px 0px; opacity: 1;"><!----><!---->
+													<div class="rectangle-layer__fill ng-star-inserted" style="background: url(&quot;${val.images.length > 0 ? server_url+"/"+val.images[0] : 'https://api.jetadmin.io/media/static_files/projects/custom_crm_1495/properties/property2.jpg'}&quot;) center center / cover no-repeat; border-radius: 12px 12px 0px 0px; opacity: 1;"><!----><!---->
 													</div><!---->
 													
 												</div><!---->
@@ -87,13 +87,13 @@ $(document).ready( () => {
 	
 	Service.updateOrder = (id,status) =>{
 		var x = ({
-					accept:status == true ? 'false' : 'true',
+					accepted:status === true ? 'false' : 'true',
 			   });
          console.log(x);
-		if (x.property_id) {
-           $.patch(Path.gate('/book',null,'/'+x.property_id), JSON.stringify(x) ).done( ()=> {
+		if (x.accepted) {
+           $.patch(Path.gate('/book',null,'/'+id), JSON.stringify(x) ).done( ()=> {
            	 Service.Orders();
-			 createAlert("Book Accepted")
+			 alert("Book Accepted")
            });
 		}else{
 			alert("Missing required data")
@@ -128,7 +128,7 @@ $(document).ready( () => {
 							<td><a href="#"><img src="/assets/images/avatar/1.jpg" class="avatar" alt="/assets/images/avatar/1.jpg"> ${val.user_name}</a></td>
 							<td>${val.property_name}</td>                       
 							
-							<td><span class="status text-info">&bull;</span> ${val.status}</td>
+							<td><span class="status text-info">&bull;</span> ${val.accepted === true ? "Accepted" : "Pending"}</td>
 							
 							<td><a href="javascript:void(0)" onclick="Service.updateOrder('${val.booking_id}', ${val.accepted})" class="view update-order" title="Accept/Reject" data-toggle="tooltip">${val.accepted ? "Cancel" : "Accept"}<i class="material-icons">&#xE5C8;</i></a></td>
 						</tr>
@@ -290,6 +290,7 @@ function hm_v_s_units(x,y,z) {
 
 // REMOVE DATA FROM ANY HILMACS DOCUMENT
 Service.del = (a,b) => {
+	console.log("del",a,b)
 	// hilmacs default comment
 	$.delete(Path.gate(b,null,'/'+a)).always( () => {
      $('.'+a+'_btn').removeClass('red');

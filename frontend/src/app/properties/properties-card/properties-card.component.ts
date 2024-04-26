@@ -23,6 +23,7 @@ export class PropertiesCardComponent implements OnInit {
 
   public selectProperty(property: Property) {
     this.propertiesService.property = property;
+    
     this.router.navigate(['/properties', property.property_id]);
   }
 }

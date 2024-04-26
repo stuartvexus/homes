@@ -5,6 +5,7 @@ import { createInvoice } from "./create-invoice.js";
 import { deleteBooking } from "./delete-booking.js";
 import { updateBooking } from "./update-booking.js";
 import {getInvoice,getUserInvoice,getInvoices} from "./get-invoice.js";
+import {getOrders} from "./get-orders.js";
 
 
 export {
@@ -18,4 +19,5 @@ export {
   getUserInvoice,
   getInvoices,
   createInvoice,
+  getOrders,
 };
