@@ -116,11 +116,11 @@
                 <form (ngSubmit)="bookLocation()">
                   <div>
                   <label for="cardNumber">Phone Number:</label><br>
-                  <input type="text"  class="form-control" style="padding: 9px;"id="cardNumber" name="Number" required>
+                  <input type="text"  class="form-control" style="padding: 9px;"id="cardNumber" name="Number" readonly>
                   </div>
                   <div>
                   <label for="expiry">Your Name:</label><br>
-                  <input type="text" id="expiry" class="form-control" style="padding:9px;"name="Name" placeholder="Your name" required>
+                  <input type="text" id="expiry" class="form-control" style="padding:9px;"name="Name" placeholder="Your name" readonly>
                   </div><br>
                   <ion-button expand="block" size="large" (click)="bookLocation()">
                     
