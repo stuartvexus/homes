@@ -23,7 +23,7 @@ export const signIn = async function (req, res) {
     }
     const { user_id } = foundUser;
     const accessToken = fastify.jwt.sign({ id: user_id });
-
+	console.log("access token=>",accessToken)
     res.status(200).send({
       id: foundUser.id,
       user_id: foundUser.user_id,

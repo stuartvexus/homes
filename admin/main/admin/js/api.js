@@ -15,22 +15,6 @@ $(document).ready( () => {
 	
 	var fetched_subjects = [];
 
-	Service.showProperty = (id) =>{
-		$.getJSON(Path.gate('/properties',null,'/'+id),  (data) => {
-			//$(".eml").empty() // clear all HTML in the div before we start printing chat messages
-			console.log("property",data)
-			if (jQuery.isEmptyObject(data)) {
-				 //console.log('yes');
-				 // $('.all-products').empty();
-			}else{
-				console.log(data)
-				$("#property-detail").show()
-				$('.property-detail').html = `
-					Showing Property 
-				`
-			}
-		})
-	}
 	
 	Service.Products =  () => {
 		$.getJSON(Path.gate('/properties',null,'/'),  (data) => {
@@ -59,7 +43,7 @@ $(document).ready( () => {
 									<div class="layer" style="mix-blend-mode: normal; width: 99.712%; height: 30.5949%; left: 50%; top: 14.7309%; transform: translate(-50%, -50%) matrix(1, 0, 0, 1, 0, 0);">
 									
 										<div class="custom-element-view__fill ng-star-inserted" style="background: rgb(255, 255, 255); border-radius: 12px;">   
-											<div class="layer-container"  onclick="Service.showProperty('${val.property_id}')" data-target="#property-detail" data-toggle="modal">
+											<div class="layer-container view-property" id='${val.property_id}' onclick="Service.showProperty('${val.property_id}')" data-target="#property-detail" data-toggle="modal">
 												<div class="rectangle-layer" style="border-radius: 12px 12px 0px 0px; opacity: 1;"><!---->
 													<div class="rectangle-layer__fill ng-star-inserted" style="background: url(&quot;https://api.jetadmin.io/media/static_files/projects/custom_crm_1495/properties/property2.jpg&quot;) center center / cover no-repeat; border-radius: 12px 12px 0px 0px; opacity: 1;"><!----><!---->
 													</div><!---->
@@ -99,6 +83,21 @@ $(document).ready( () => {
   // dispaly supported terms
 	Service.Products();
 	
+	Service.updateOrder = (id,status) =>{
+		var x = ({
+					accept:status == true ? 'false' : 'true',
+			   });
+         console.log(x);
+		if (x.property_id) {
+           $.patch(Path.gate('/book',null,'/'+x.property_id), JSON.stringify(x) ).done( ()=> {
+           	 Service.Orders();
+			 createAlert("Book Accepted")
+           });
+		}else{
+			alert("Missing required data")
+		}
+	}
+	
 	Service.Orders =  () => {
 		$.getJSON(Path.gate('/book',null,'/'),  (data) => {
 			console.log("order=>",data)
@@ -110,7 +109,15 @@ $(document).ready( () => {
 				$('.all-orders').empty();
 				$.each(data.data,  (key, val) => {
 					$('.all-orders').append( `
-						${JSON.stringify(val)}
+						<tr>
+							<td>2</td>
+							<td><a href="#"><img src="/assets/images/avatar/1.jpg" class="avatar" alt="Avatar"> Paula Wilson</a></td>
+							<td>${val.name}</td>                       
+							<td>${val.createdAt}</td>
+							<td><span class="status text-info">&bull;</span> ${val.status}</td>
+							<td>${val.fullName}</td>
+							<td><a href="javascript:void(0)" onclick="Service.updateOrder('${val.booking_id}', ${val.accepted})" class="view update-order" title="Accept/Reject" data-toggle="tooltip"><i class="material-icons">&#xE5C8;</i></a></td>
+						</tr>
 					`);
 				 });
 			}
@@ -123,13 +130,13 @@ $(document).ready( () => {
 			if (jQuery.isEmptyObject(data)) {
 				 //console.log('yes');
 			}else{
-				console.log(data)
+				console.log("income",data)
 				$('.hm-recent-orders').empty();
 				$('.hm-trending-products').empty();
-				/*$('.hm-total-products').text(data.products.length);
-				$('.hm-total-orders').text(data.orders.length);
-				$('.hm-total-pending').text(data.pending.length);
-				$('.hm-total-sales').text(data.amount);*/
+				/*$('.total-products').text(data.products.length);
+				$('.total-orders').text(data.orders.length);
+				$('.total-pending').text(data.pending.length);
+				$('.total-sales').text(data.amount);*/
 				
 				//var i = 0
 				
@@ -158,18 +165,84 @@ $(document).ready( () => {
 	}
 	Service.Users();
 	
-	Service.Enquiries = () =>{
-		$.getJSON(Path.gate('/enquiries',null,'/'),  (data) => {
-			console.log(data)
+	Service.enquiryRoom = (id) => {
+		$.getJSON(Path.gate('/enquiries',null,'/'+id),  (data) => {
+			console.log("Enquiry",data)
 			if (jQuery.isEmptyObject(data)) {
 				 //console.log('yes');
-				 $('.all-enquiries').empty();
+				// $('.enquiriy-room').empty();
 			}else{
 				
-				$('.all-enquiries').empty();
-				$.each(data.orders,  (key, val) => {
+				$('.enquiriy-room').empty();
+				let i = 1;
+				if(data.data){
+					let val = data.data
+					if(val.enquiry_id){
+						$("#enquiry_id").val(val.enquiry_id)
+					}
+					$('.enquiry-room').append(`<div class='reply-button' style="position:absolute;top: 0;left: 0;width: 100%;text-align:center;"><button class="btn btn-primary reply-enquiry">Reply</button></div>`)
+					
+					
+					$('.enquiry-room').append(`
+						<div class="d-flex flex-row justify-content-start">
+							<img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava1-bg.webp"
+							  alt="${data.user.fullName}" style="width: 45px; height: 100%;">
+							<div>
+							  <p class="small p-2 ms-3 mb-1 rounded-3" style="background-color: #f5f6f7;">${val.content}</p>
+							  <p class="small ms-3 mb-3 rounded-3 text-muted float-end">${val.createdAt}</p>
+							</div>
+						 </div>
+					`)
+				}
+			}
+		});
+	}
+	
+	$('.reply-enquiry').click(function(){
+		let enquiry_id = $("#enquiry_id").val()
+		var x = ({
+					content:$('.enquiry-content').val(),
+					read:true,
+			   });
+         console.log(x);
+		if (x.content) {
+           $.patch(Path.gate('/enquiries',null,'/'+enquiry_id), JSON.stringify(x) ).done( ()=> {
+           	 Service.Enquiries();
+
+           });
+		}else{
+			alert("Missing content data")
+		}
+	})
+	
+	Service.Enquiries = () =>{
+		$.getJSON(Path.gate('/enquiries',null,'/'),  (data) => {
+			console.log("Enquiries",data)
+			if (jQuery.isEmptyObject(data)) {
+				 //console.log('yes');
+				// $('.all-enquiries').empty();
+			}else{
+				
+				//$('.all-enquiries').empty();
+				$.each(data.data,  (key, val) => {
 					$('.all-enquiries').append( `
-						${JSON.stringify(val)}
+						<li class="p-2 border-bottom" oncclick="Service.enquiryRoom('${val.enquiry_id}')">
+							<a href="#!" class="d-flex justify-content-between">
+							  <div class="d-flex flex-row">
+								<div>
+								  <img
+									src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava1-bg.webp"
+									alt="avatar" class="d-flex align-self-center me-3" width="60">
+								  <span class="badge bg-success badge-dot"></span>
+								</div>
+								<div class="pt-1">
+								  <p class="fw-bold mb-0">${val.userFrom}</p>
+								  <p class="small text-muted">${val.title}</p>
+								</div>
+							  </div>
+							  
+							</a>
+						</li>
 					`);
 				 });
 			}

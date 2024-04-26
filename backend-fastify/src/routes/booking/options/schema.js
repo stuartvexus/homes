@@ -15,9 +15,13 @@ export const bookingProperties = {
   type: "object",
   properties: {
     property_id: { type: "string" },
-    name: { type: "string" },
+    fullName: { type: "string" },
+	name:{type:"string"},
+	amount: {type:"string"},
+	phone:{type:"string"},
     booking_id:{type:"string"},
     user_id: { type: "string" },
+	invoice_id:{type:String},
   },
 };
 Object.freeze(bookingProperties);

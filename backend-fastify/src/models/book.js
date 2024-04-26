@@ -11,6 +11,9 @@ const bookingSchema = new mongoose.Schema(
     property_id: {type:String,required:true},
     user_id: { type: String },
     complete:{type:Boolean,default:false},
+	accepted:{type:Boolean,default:false},
+	amount:{type:Number},
+	status:{type:String,default:"pending"},
     due:{type:Date,default:null},
   },
   {

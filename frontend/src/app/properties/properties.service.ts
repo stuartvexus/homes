@@ -145,7 +145,7 @@ export class PropertiesService {
   public async bookProperty(propId: string): Promise<void> {
     const token = this.userService.token();
     try {
-      const url = `${propertyUrl}/book/${propId}`;
+      const url = `${propertyUrl.replace('properties','book')}/${propId}`;
       const res = await firstValueFrom(
         this.http.post<ResProperty>(url, requestOptions({ token }))
       );

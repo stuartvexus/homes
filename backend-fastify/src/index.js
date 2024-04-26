@@ -38,6 +38,15 @@ fastify.register(FastifyWebsocket, {
   }
 });
 
+fastify.get('/uploads/:filename', async (request, reply) => {
+	  const { filename } = request.params;
+	  try{
+		return reply.sendFile(filename); // Send the file with the given filename
+	  }catch(e){
+		  return reply.sendFile(path.join(__dirname, "uploads")+'/placeholder.jpeg')
+	  }
+});
+
 // We register authenticate
 fastify.decorate("authenticate", async function (request, reply) {
   try {

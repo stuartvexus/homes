@@ -2,6 +2,7 @@ import {
     getBookingsOpts,
     getBookingOpts,
     createBookingOpts,
+	createInvoiceOpts,
     updateBookingOpts,
     deleteBookingOpts,
     getIncomeOpts,
@@ -10,6 +11,7 @@ import {
     getUserBookings,
     getBooking,
     createBooking,
+	createInvoice,
     updateBooking,
     deleteBooking,
     getBookings,
@@ -26,6 +28,7 @@ import {
     fastify.get("/user/:id", getBookingOpts(getUserBookings));
     fastify.get("/:id", getBookingOpts(getBooking));
     //fastify.post("/", createBookingOpts(fastify, createBooking));
+	fastify.post("pay/:id", createInvoiceOpts(fastify, createInvoice));
     fastify.post("/:id", createBookingOpts(fastify, createBooking));
     fastify.patch("/:id", updateBookingOpts(fastify, updateBooking));
     fastify.delete("/:id", deleteBookingOpts(fastify, deleteBooking));

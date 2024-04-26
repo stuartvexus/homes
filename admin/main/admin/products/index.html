@@ -12,7 +12,8 @@
     <link rel="stylesheet" href="/finance_files/webapp-8a0cee2c8c0e5ff3b773a66185e55ed3.css" integrity="" type="text/css">
 	<link rel="stylesheet" href="/css/hilmacs.css" type="text/css"/>
 	<link rel="stylesheet" href="css/properties.css"/>
-
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
 	<title> Products </title>
 	<script src="https://maps.googleapis.com/maps/api/js?key={{map_key}}" async defer></script>
     <style>
@@ -51,9 +52,7 @@
 							  <a href="/orders"  class="list-group-item md-whiteframe-z0">
 								<span class="mdi-exit pull-left"></span><span  class="margin-3 lc-nav-cprofile">   Bookings </span> </span>
 							  </a>
-							<a href="/settings/company"  class="list-group-item md-whiteframe-z0 ">
-							  <span class="mdi-av-equalizer pull-left"></span><span  class="margin-3 lc-nav-cprofile">   Company Profile </span> </span>
-							</a>
+							
 							<a href="/logout"  class="list-group-item md-whiteframe-z0">
 							  <span class="mdi-exit pull-left"></span><span  class="margin-3 lc-nav-cprofile">   Logout </span> </span>
 							</a>
@@ -95,10 +94,7 @@
 											<span class="input-group-addon">Address</span>
 											<input type="text" maxlength="125" class="form-control property-address" placeholder="ie: Adress, Country">
 										  </div><br>
-										   <div class="input-group">
-											 <span class="input-group-addon ">Image</span>
-											 <input type="file" class="form-control property-image " placeholder="ie: Image File">
-										   </div><br>
+										   
 										   <div class="input-group">
 											<span class="input-group-addon ">Currency</span>
 											<input type="text" class="form-control property-currency " placeholder="ie: Currency">
@@ -117,6 +113,9 @@
 										  <select class="form-control property-type" >
 										   
 										   <option value="residential">Residential</option>
+										   <option value="commercial">Commercial</option>
+										   <option value="industrial">Industrial</option>
+										   <option value="land">Land</option>
 										  </select>
 			   
 										  <input type="hidden" class="hm-inpt-modal-c2" id="hm-inpt-modal-c2"/>
@@ -155,21 +154,21 @@
 									</div>
 									</div>
 								</div>
-								<div class="modal" id="property-detail" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true" >
-									<div class="modal-dialog">
-									<div class="modal-content">
+								<div class="modal modal-fullscreen-sm-down" id="property-detail" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true" >
+									<div class="modal-dialog" style="min-width: 100%;">
+									<div class="modal-content" style="min-width: 95%;">
 										<input type="hidden" name="" id="property-position" value="0:0">
 										<input type="hidden" name="" id="property-id" >
 										<div class="modal-header">
 										<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 										<h4 class="modal-title" id="">Property Detail</h4>
 										</div>
-										<div class="modal-body property-detail" style="width: 656px;">
+										<div class="modal-body show-detail" id="show-detail">
 											
 										</div>
 										<div class="modal-footer">
 										<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-										<button type="button" class="btn btn-primary" data-dismiss="modal"> </button>
+										<button type="button" class="btn btn-primary property-edit-image" data-dismiss="modal"> Save Changes</button>
 										</div>
 									</div>
 									</div>
@@ -199,6 +198,8 @@
 <script src="/css/bootstrap/js/bootstrap.bundle.js"></script>
 <script src="/css/bootstrap/js/bootstrap.min.js"></script>
 <script src="js/jquery.bundle.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
 <scrip src="js/popper.min.js"></script>
 <script src="js/admin.min.js"></script>
 

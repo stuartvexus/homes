@@ -10,11 +10,13 @@ export const updateBooking = async function (req, res) {
   const {
     name,
     phone,
+	accepted,
   } = req.body;
   const $set = {
     // Fields to update
     ...(name !== undefined && { name }),
-    ...(address !== undefined && { address }),
+	...(phone !== undefined && { phone }),
+    ...(accepted !== undefined && { accepted }),
     
   };
   try {

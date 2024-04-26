@@ -24,7 +24,8 @@ export const createBooking = async function (req, res) {
     const newBooking = new Booking({
       booking_id: uuidv4(),
       property_id:id,
-
+	  amount:property.price,
+	  fullName: name,
       user_id,
       ...req.body,
     });

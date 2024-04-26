@@ -19,11 +19,7 @@
 	<style>
 		
 </style>
-<script>
-$(document).ready(function(){
-	$('[data-toggle="tooltip"]').tooltip();
-});
-</script>
+
    </head>
    <body>
 
@@ -53,9 +49,9 @@ $(document).ready(function(){
 							  <a href="/orders"  class="list-group-item md-whiteframe-z0">
 								<span class="mdi-exit pull-left"></span><span  class="margin-3 lc-nav-cprofile">   Bookings </span> </span>
 							  </a>
-							<a href="/settings/company"  class="list-group-item md-whiteframe-z0 ">
+							<!---<a href="/settings/company"  class="list-group-item md-whiteframe-z0 ">
 							  <span class="mdi-av-equalizer pull-left"></span><span  class="margin-3 lc-nav-cprofile">   Company Profile </span> 
-							</a>
+							</a>-->
 							<a href="/logout"  class="list-group-item md-whiteframe-z0">
 							  <span class="mdi-exit pull-left"></span><span  class="margin-3 lc-nav-cprofile">   Logout </span> 
 							</a>
@@ -78,7 +74,7 @@ $(document).ready(function(){
 											</div>
 											<div class="col-sm-8" style="margin-right: 45px;">						
 												<a href="#" class="btn btn-primary"><i class="material-icons">&#xE863;</i> <span>Refresh List</span></a>
-												<a href="#" class="btn btn-info"><i class="material-icons">&#xE24D;</i> <span>Export to Excel</span></a>
+												<a href="#" class="btn btn-info" style="color:black;"><i class="material-icons">&#xE24D;</i> <span>Export to Excel</span></a>
 											</div>
 										</div>
 									</div>
@@ -139,30 +135,16 @@ $(document).ready(function(){
 												<td>$254</td>
 												<td><a href="#" class="view" title="View Details" data-toggle="tooltip"><i class="material-icons">&#xE5C8;</i></a></td>
 											</tr>
-											<tr>
-												<td>2</td>
-												<td><a href="#"><img src="/examples/images/avatar/2.jpg" class="avatar" alt="Avatar"> Paula Wilson</a></td>
-												<td>Madrid</td>                       
-												<td>Jun 21, 2017</td>
-												<td><span class="status text-info">&bull;</span> Shipped</td>
-												<td>$1,260</td>
-												<td><a href="#" class="view" title="View Details" data-toggle="tooltip"><i class="material-icons">&#xE5C8;</i></a></td>
-											</tr>
+											
 											
 										</tbody>
 									</table>
 									<div class="clearfix">
 										<div class="hint-text">Showing <b>5</b> out of <b>25</b> entries</div>
 										<ul class="pagination">
-											<li class="page-item disabled"><a href="#">Previous</a></li>
+											
 											<li class="page-item"><a href="#" class="page-link">1</a></li>
-											<li class="page-item"><a href="#" class="page-link">2</a></li>
-											<li class="page-item"><a href="#" class="page-link">3</a></li>
-											<li class="page-item active"><a href="#" class="page-link">4</a></li>
-											<li class="page-item"><a href="#" class="page-link">5</a></li>
-											<li class="page-item"><a href="#" class="page-link">6</a></li>
-											<li class="page-item"><a href="#" class="page-link">7</a></li>
-											<li class="page-item"><a href="#" class="page-link">Next</a></li>
+											
 										</ul>
 									</div>
 								</div>
@@ -181,6 +163,11 @@ $(document).ready(function(){
 <script src="/css/bootstrap/js/bootstrap.bundle.js"></script>
 <script src="/css/bootstrap/js/bootstrap.min.js"></script>
 <script src="js/jquery.bundle.js"></script>
+<script>
+$(document).ready(function(){
+	$('[data-toggle="tooltip"]').tooltip();
+});
+</script>
 <scrip src="js/popper.min.js"></script>
 <script src="js/admin.min.js"></script>		
 </body>
