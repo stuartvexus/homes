@@ -1,9 +1,9 @@
 export const invoiceProperties = {
   type: "object",
-  invoice: {
+  properties: {
     property_id: { type: "string" },
     name: { type: "string" },
-    booking_id:{type:"sring"},
+    booking_id:{type:"string"},
     user_id: { type: "string" },
     amount:{type:"number"},
     date:{type:"string"},
@@ -21,7 +21,7 @@ export const bookingProperties = {
 	phone:{type:"string"},
     booking_id:{type:"string"},
     user_id: { type: "string" },
-	invoice_id:{type:String},
+	invoice_id:{type:"string"},
   },
 };
 Object.freeze(bookingProperties);

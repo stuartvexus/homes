@@ -6,7 +6,7 @@ import { Invoice } from "../../models/invoice.js";
 import { authBearerToken } from "../../utils/requests.js";
 import { userIdToken } from "../../utils/users.js";
 
-export const createBooking = async function (req, res) {
+export const createInvoice = async function (req, res) {
   const  data = req.body;
   const {id} = req.params
   /*if (!name || !phone ) {
@@ -35,6 +35,7 @@ export const createBooking = async function (req, res) {
 		if(!data.status || data.status == '00'){
 			invoice.complete = true
 			invoice.status = "paid"
+      
 			booking.complete = true
 			booking.status = "paid"
 			await invoice.save()
@@ -44,16 +45,18 @@ export const createBooking = async function (req, res) {
 		}
 		return res.status(201).send({data:invoice})
 	}
+  let amt = property ? property.price : booking.amount;
     const newInvoice = new Invoice({
       invoice_id: uuidv4(),
       property_id:booking.property_id,
 	  booking_id:id,
+    amount : amt,
       user_id,
       ...req.body,
     });
 	if(!data.status || data.status == '00' ){
-		newBooking.status = "paid"
-		newBooking.complete= true
+		newInvoice.status = "paid"
+		newInvoice.complete= true
 		booking.complete = true
 		booking.status = "paid"
 		await booking.save()

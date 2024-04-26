@@ -9,6 +9,7 @@ const invoiceSchema = new mongoose.Schema(
     user_id: { type: String },
     complete:{type:Boolean,default:false},
     due:{type:Date,default:null},
+    amount:{type:Number},
   },
   {
     timestamps: true,

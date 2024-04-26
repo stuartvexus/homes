@@ -17,4 +17,5 @@ export {
   getInvoice,
   getUserInvoice,
   getInvoices,
+  createInvoice,
 };
