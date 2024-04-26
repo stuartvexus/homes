@@ -7,7 +7,7 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import { ToastController } from '@ionic/angular';
-import { PropertiesService } from '../../properties.service';
+import { PropertiesService } from '../../bookings.service';
 import { register } from 'swiper/element/bundle';
 
 register();

@@ -3,7 +3,7 @@ import { ModalController, ToastController } from '@ionic/angular';
 import { Validators, UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
 
 import { PropertyType } from 'src/app/shared/enums/property';
-import { PropertiesService } from '../properties.service';
+import { PropertiesService } from '../bookings.service';
 import { PropertiesCoordinatesComponent } from '../properties-coordinates-modal/properties-coordinates.component';
 
 @Component({

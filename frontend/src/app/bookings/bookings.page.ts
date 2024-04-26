@@ -13,8 +13,8 @@ import { Observable, Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-properties',
-  templateUrl: './properties.page.html',
-  styleUrls: ['./properties.page.scss'],
+  templateUrl: './bookings.page.html',
+  styleUrls: ['./bookings.page.scss'],
 })
 export class PropertiesPage implements OnInit, OnDestroy {
   @ViewChild('propertyLists') propertyListsComponent: PropertiesListComponent;
