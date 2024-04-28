@@ -142,6 +142,7 @@ export class PropertiesService {
   public async bookProperty(propId: string): Promise<void> {
     const token = this.userService.token();
     try {
+
       const headers = { authorization: `Bearer ${token}` };
     
       const url = `${propertyUrl.replace('properties','book')}/${propId}`;

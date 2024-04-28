@@ -13,6 +13,7 @@ function hcr(name) {
 $(document).ready( () => {
 	// show current year
 	
+
 	var fetched_users = [];
 	var fetched_houses = [];
 
@@ -78,6 +79,7 @@ $(document).ready( () => {
 					
 					</div>
 					`);
+
 				 });
 			}
 		});
@@ -85,6 +87,7 @@ $(document).ready( () => {
   // dispaly supported terms
 	Service.Products();
 	
+
 	Service.updateOrder = (id,status) =>{
 		var x = ({
 					accepted:status === true ? 'false' : 'true',
@@ -131,6 +134,7 @@ $(document).ready( () => {
 							<td><span class="status text-info">&bull;</span> ${val.accepted === true ? "Accepted" : "Pending"}</td>
 							
 							<td><a href="javascript:void(0)" onclick="Service.updateOrder('${val.booking_id}', ${val.accepted})" class="view update-order" title="Accept/Reject" data-toggle="tooltip">${val.accepted ? "Cancel" : "Accept"}<i class="material-icons">&#xE5C8;</i></a></td>
+
 						</tr>
 					`);
 				 });
@@ -140,6 +144,7 @@ $(document).ready( () => {
 
 	Service.Orders();
 	Service.Income =  () => {
+
 		$.getJSON(Path.gate('/book',null,'/income/all'),  (data) => {
 			if (jQuery.isEmptyObject(data)) {
 				 //console.log('yes');
@@ -155,11 +160,13 @@ $(document).ready( () => {
 				//var i = 0
 				
 				//Service.roundedChart("chart-order",["Recent Orders","Pending Payments","Recieved Payments"],[data.invoice,data.invoice-data.amount,data.amount])
+
 			}
 		});
 	}
 
 	Service.Income();
+
 	Service.Users = () =>{
 		$.getJSON(Path.gate('/users',null,'/'),  (data) => {
 			console.log(data)
@@ -266,6 +273,7 @@ $(document).ready( () => {
 	}
 	Service.Enquiries();
 	//console.log(fetched_subjects)
+
 })
 
 function hm_v_s_units(x,y,z) {
@@ -290,7 +298,9 @@ function hm_v_s_units(x,y,z) {
 
 // REMOVE DATA FROM ANY HILMACS DOCUMENT
 Service.del = (a,b) => {
+
 	console.log("del",a,b)
+
 	// hilmacs default comment
 	$.delete(Path.gate(b,null,'/'+a)).always( () => {
      $('.'+a+'_btn').removeClass('red');

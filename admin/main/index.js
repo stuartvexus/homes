@@ -8,7 +8,9 @@ const productRoute = require("./routes/product");
 const categoryRoute = require("./routes/category");
 const cartRoute = require("./routes/cart");
 const orderRoute = require("./routes/order");
+
 const useRequests = require("./routes/requests");
+
 const axios = require("axios");
 const bodyParser = require("body-parser");
 const cors = require("cors");
@@ -32,7 +34,11 @@ app.use(session({
   secret: 'your-secret-key',
   resave: false,
   saveUninitialized: true,
+<<<<<<< HEAD
+  cookie: { secure: false } // Set secure to true if using HTTPS
+=======
   cookie: { maxAge: 4 * 60 * 60 * 1000,secure: false } // Set secure to true if using HTTPS
+>>>>>>> b0326e55f482dc1e3b2946118246b21902096b79
 }));
 
 const corsOptions ={
@@ -55,7 +61,11 @@ mongoose
   app.set('views', path.join(__dirname, 'admin'));
 	app.engine('.html', exphbs.engine({ extname: 'html'}));
 	app.set('view engine', '.html');
+<<<<<<< HEAD
+  
+=======
   app.use("",useRequests)
+>>>>>>> b0326e55f482dc1e3b2946118246b21902096b79
   app.use("/api/auth", authRoute); 
   app.use("/api/users", userRoute);
   app.use("/api/products", productRoute);
@@ -67,6 +77,28 @@ mongoose
     res.redirect("/login")
   });
   app.get("/", verifyToken,async (req, res) => {
+<<<<<<< HEAD
+    res.render("vendordashboard",{user:req.session.user});
+  });
+  app.get("/superuser",verifyToken, async (req, res) => {
+	  console.log(req.session.user)
+    res.render("vendordashboard",{user:req.session.user});
+  });
+  app.get("/login", async (req, res) => {
+    res.sendFile(path.join(__dirname,'admin/login.html'));
+  });
+  app.get("/register", async (req, res) => {
+    res.sendFile(path.join(__dirname,'admin/register.html'));
+  });
+  app.get("/settings/company", async (req, res) => {
+    res.sendFile(path.join(__dirname,'admin/settings/company/index.html'));
+  });
+  app.get("/products", async (req, res) => {
+    res.sendFile(path.join(__dirname,'admin/products/index.html'));
+  });
+  app.get("/orders", async (req, res) => {
+    res.sendFile(path.join(__dirname,'admin/orders/index.html'));
+=======
     res.render("index.html",{user:req.session.user});
   });
   app.get("/superuser",verifyToken, async (req, res) => {
@@ -96,6 +128,7 @@ mongoose
   });
   app.get("/enquiries", verifyToken,async (req, res) => {
     res.render('enquiries/index.html');
+>>>>>>> b0326e55f482dc1e3b2946118246b21902096b79
   });
 
 
