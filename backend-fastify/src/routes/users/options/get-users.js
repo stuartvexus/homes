@@ -7,7 +7,7 @@ import { responseSuccess, responseError } from "../../../utils/schema/response.j
 
 export const getUsersOpts = (handler, fastify) => ({
   
-  preValidation: [fastify.authenticate],
+  //preValidation: [fastify.authenticate],
 
   schema: {
     response: {

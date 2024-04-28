@@ -49,7 +49,7 @@ export class PropertiesNewComponent implements OnInit {
       type: [PropertyType.residential],
       // Step 2
       price: ['',],
-      currency: ['PHP', [Validators.maxLength(3), Validators.pattern('^[a-zA-Z ]*$')]],
+      currency: ['KES', [Validators.maxLength(3), Validators.pattern('^[a-zA-Z ]*$')]],
       features: [''],
       lat: ['0', Validators.required],
       lng: ['0', Validators.required],

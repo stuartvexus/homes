@@ -16,6 +16,7 @@ import { UserService } from 'src/app/user/user.service';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { PropertiesGalleryComponent } from '../properties-gallery/properties-gallery.component';
+import { PropertiesPayComponent} from "../properties-pay/properties-pay.component";
 
 @Component({
   selector: 'app-properties-detail',
@@ -24,6 +25,7 @@ import { PropertiesGalleryComponent } from '../properties-gallery/properties-gal
 })
 export class PropertiesDetailComponent implements OnInit, OnDestroy {
   @ViewChild('propertiesGallery') propertiesGallery: PropertiesGalleryComponent;
+  @ViewChild('propertiesPay') propertiesPay: PropertiesPayComponent;
   public property: Property | undefined;
   public isOwner = false;
   public ready = false;
@@ -91,15 +93,21 @@ export class PropertiesDetailComponent implements OnInit, OnDestroy {
 	if (data.action === 'book') {
       this.propertiesService.bookProperty(this.property.property_id);
       this.presentToast('Success,property Booked');
-      this.router.navigate(['/properties'],this.property.property_id,'/pay');
+
+      this.router.navigate(['/properties/pay/'+this.property.property_id]);
+
     }
     if (data.action === 'report') {
       this.presentToast('Success, we will take a look at this property.');
     }
   }
   public async bookLocation(){
+
+    this.propertiesService.bookProperty(this.property.property_id);
+      this.presentToast('Success,property Booked');
+      this.router.navigate(['/properties/pay/'+this.property.property_id]);
   }
-  
+
   public findInMap() {
     const { lat, lng } = this.property.position;
     this.router.navigate(['/map'], { queryParams: { lat, lng } });

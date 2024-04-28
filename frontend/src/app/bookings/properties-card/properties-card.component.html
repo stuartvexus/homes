@@ -1,0 +1,44 @@
+<ion-card>
+  <div class="tag" *ngIf="property.status === 'paid'">
+    Owned
+  </div>
+
+  
+  <ion-card-header>
+    <app-property-badge [type]="property?.type"></app-property-badge>
+    <ion-card-title class="name">
+      {{ property?.email }}
+    </ion-card-title>
+
+    <div>
+      {{ property?.createdAt | date }}
+    </div>
+  </ion-card-header>
+
+  <ion-card-content>
+	  <div class="tag" *ngIf="userService.user?.user_id === property.user_id">
+		Booked
+	  </div>
+    <ion-button
+      (click)="selectProperty(property)"
+      expand="block"
+      class="ion-margin-top"
+      color="primary"
+	  *ngIf="property.accepted === true"
+    >
+		<span *ngIf="property.status === 'paid'">
+			Paid
+		</span>
+		<span *ngIf="property.status === 'pending'">
+			Pay
+		</span>
+     
+    </ion-button>
+	<ion-button
+      expand="block"
+      class="ion-margin-top"
+      color="primary"
+	  *ngIf="property.accepted === false"
+    >Pending Approval</ion-button>
+  </ion-card-content>
+</ion-card>

@@ -24,6 +24,14 @@ const routes: Routes = [
     loadChildren: () => import('./properties/properties.module').then( m => m.PropertiesPageModule)
   },
   {
+    path: 'bookings',
+    loadChildren: () => import('./bookings/bookings.module').then( m => m.BookingsPageModule)
+  },
+  {
+    path: 'alerts',
+    loadChildren: () => import('./bookings/bookings.module').then( m => m.BookingsPageModule)
+  },
+  {
     path: 'enquiries',
     loadChildren: () => import('./enquiries/enquiries.module').then( m => m.EnquiriesPageModule)
   },

@@ -84,7 +84,9 @@ export class PropertiesPayComponent implements OnInit, OnDestroy {
 	if (data.action === 'book') {
       this.propertiesService.bookProperty(this.property.property_id);
       this.presentToast('Success,property Booked');
-      this.router.navigate(['/properties'],this.property.property_id,'/pay');
+
+      this.router.navigate(['/bookings']);
+
     }
    
   }

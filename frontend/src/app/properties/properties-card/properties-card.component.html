@@ -5,7 +5,7 @@
 
   <img
     class="profile-image"
-    [src]="property?.images[0]"
+    [src]="generateImageUrl(property?.images[0])"
     *ngIf="property?.images?.length"
   />
   <img

@@ -13,88 +13,73 @@ function hcr(name) {
 $(document).ready( () => {
 	// show current year
 	
-	var fetched_subjects = [];
-	Service.Categories =  () => {
-		$('#available-categories').change(function(e){
-			var value = e.target.value.split("+")
-			console.log("selected",e.target.value,value);
-			var selected = $("#selected-units").val()
-			
-			var selectedids = $('#hm-inpt-modal-c2').val();
-			if(selected.includes(value[1])){
-				selected.replace(value[1]+",","")
-				selectedids.replace(value[0]+",","")
-				$('#hm-inpt-modal-c2').val(selectedids);
-				$("#selected-units").val(selected)
-			}else{
-				selected += value[1]+","
-				selectedids+= value[0]+","
-				$('#hm-inpt-modal-c2').val(selectedids);
-				$("#selected-units").val(selected)
-			}
-			e.target.value = null
-			let str = $('#hm-inpt-modal-c2').val()
-			let lastIndex = str.lastIndexOf(',');
-			if (lastIndex !== -1) {
-				let modifiedStr = str.substring(0, lastIndex) + str.substring(lastIndex + 1);
-				$('#hm-inpt-modal-c2').val(modifiedStr)
-				// console.log(modifiedStr);
-			}else{
-				$('#hm-inpt-modal-c2').val(str+",")
-			}
-		});
-		$.getJSON(Path.gate('categories',null,''),  (data) => {
-			console.log(data);
-			if (jQuery.isEmptyObject(data)) {
-				 //console.log('yes');
-				 //$('.hm-mv-categories').empty();
-			}else{
-				
-				$('.hm-mv-categories').empty();
-				//$('#available-categories').empty();
-				$.each(data,  (key, val) => {
-						fetched_subjects.push({id:val._id,name:val.name})
-						$('#available-categories').append(`<option value="${val._id}+${val.name}">${val.name}</option>`);
-						$('.hm-mv-categories').append( `<tr class="${val._id}_off"> <td class="ng-binding">${val.name}</td>  <td class="ng-binding">${val.createdAt}</td> <td class="ng-binding">${val.status}</td> <td class="no-print"  onclick="Service.del(\'${val._id}\' , \'categories\');"><a  md-ink-ripple="" class="md-btn md-raised pull-left p-h-md red ${val._id}_btn">Delete</a></td></tr>`);
-				 });
-			}
-		});
-	}
-	
-	
-  // dispaly supported terms
-	Service.Categories();
+
+	var fetched_users = [];
+	var fetched_houses = [];
+
 	
 	Service.Products =  () => {
-		$.getJSON(Path.gate('products',null,''),  (data) => {
+		$.getJSON(Path.gate('/properties',null,'/'),  (data) => {
 			//$(".eml").empty() // clear all HTML in the div before we start printing chat messages
+			console.log(data)
 			if (jQuery.isEmptyObject(data)) {
 				 //console.log('yes');
-				  $('.hm-mv-products').empty();
+				  $('.all-products').empty();
 			}else{
-			
- 		    $('.hm-mv-products').empty();
-				$.each(data.products,  (key, val) => {
-						for(var dt of fetched_subjects){
-						   if(dt.id){
-							   val.categories[val.categories.indexOf(dt.id)] = dt.name
-						   }
-					    }
-						val.categories = val.categories.join(",")
-						$('.hm-mv-products').append(`
-							<tr class="${val._id}_off">
-								<th scope="row"><img src='${val.img}' class="blur-up lazyloaded"></th>
-								<td>${val.title}</td>
-								<td>${val.categories}</td>
-								<td class="fw-bold text-theme">${val.price}</td>
-								<td>${val.units}</td>
-								<td>0</td>
-								<td>
-									<a href="javascript:void(0)"><i class="fas fa-pencil-square me-1" aria-hidden="true"></i></a>
-									<a href="javascript:void(0)" onclick="Service.del(\'${val._id}\' , \'products\');"><i class="fas fa-trash ms-1 text-theme" aria-hidden="true"></i></a>
-								</td>
-							</tr>
-						`);
+			console.log("properties=>",data)
+ 		    $('.all-products').empty();
+				$.each(data.data,  (key, val) => {
+					fetched_houses.push({id:val.property_id,name:val.name})
+					console.log("position",val.position)
+					$('.all-products').append(`
+					<div class="kanban-board-column ng-star-inserted" style="max-width: 245px;height: 244px;flex: auto;margin-left: 9px;margin-top:9px;">
+					<div class="kanban-board-column__header-main"><div class="kanban-board-column__status"><span class="status color_bright-blue_1 background-color_bright-blue_2"><!----><!---->Scheduled<!----><!----></span></div></div><!----><div class="kanban-board-column__header-right ng-star-inserted"><span class="kanban-board-column__tip"> 8 </span><span class="kanban-board-column__action icon-repeat"></span></div>
+					<div class="kanban-board-column__scrollable" xsscrollable="">
+					
+					
+					<div cdkdroplist="" class="kanban-board-column__content cdk-drop-list ng-star-inserted" id="property_management_3_element_r1v63v5j_0_stage_1"><!---->
+						<div cdkdrag="" class="kanban-board-column__item cdk-drag ng-star-inserted" style="touch-action: none; user-select: none;">
+							<div class="kanban-board-item-view kanban-board-item-view_draggable kanban-board-item-view_clickable ng-star-inserted" style="height: 353px; min-width: 236px; min-height: 255px; max-height: 489px;">
+									<div class="custom-element-view" style="border-radius: 12px; opacity: 1; box-shadow: rgba(0, 0, 0, 0.1) 0px 2px 10px 0px;"><!---->
+									</div>
+								<div class="custom-element-view__content"  >
+									<div class="layer" style="mix-blend-mode: normal; width: 99.712%; height: 30.5949%; left: 50%; top: 14.7309%; transform: translate(-50%, -50%) matrix(1, 0, 0, 1, 0, 0);">
+									
+										<div class="custom-element-view__fill ng-star-inserted" style="background: rgb(255, 255, 255); border-radius: 12px;">   
+											<div class="layer-container view-property" id='${val.property_id}' onclick="Service.showProperty('${val.property_id}')" data-target="#property-detail" data-toggle="modal">
+												<div class="rectangle-layer" style="border-radius: 12px 12px 0px 0px; opacity: 1;"><!---->
+													<div class="rectangle-layer__fill ng-star-inserted" style="background: url(&quot;${val.images.length > 0 ? server_url+"/"+val.images[0] : 'https://api.jetadmin.io/media/static_files/projects/custom_crm_1495/properties/property2.jpg'}&quot;) center center / cover no-repeat; border-radius: 12px 12px 0px 0px; opacity: 1;"><!----><!---->
+													</div><!---->
+													
+												</div><!---->
+											</div>
+											
+										</div>
+										
+									</div>
+									<div class="property-content">
+										<h3>${val.name}</h3>
+										<h5>${val.currency} <b>${val.price}</b></h5>
+										<div class="property-features">
+										${val.features}
+										</div>
+										<div class="desc">
+											<p>${val.description}</p>
+										</div>
+										<div class="" style="position:absolute;right: 2.5%;bottom: 2.5%;z-index: 99;">
+										<button type="button" data-toggle="modal" data-target="#property-map" onclick="Service.showMap('${val.position.lat+":"+val.position.lng}','map','property-position','${val.property_id}')" class="btn btn-sm btn-success" >View in Map</button>
+										</div>
+									
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					</div>
+					
+					</div>
+					`);
+
 				 });
 			}
 		});
@@ -102,22 +87,54 @@ $(document).ready( () => {
   // dispaly supported terms
 	Service.Products();
 	
+
+	Service.updateOrder = (id,status) =>{
+		var x = ({
+					accepted:status === true ? 'false' : 'true',
+			   });
+         console.log(x);
+		if (x.accepted) {
+           $.patch(Path.gate('/book',null,'/'+id), JSON.stringify(x) ).done( ()=> {
+           	 Service.Orders();
+			 alert("Book Accepted")
+           });
+		}else{
+			alert("Missing required data")
+		}
+	}
+	
 	Service.Orders =  () => {
-		$.getJSON(Path.gate('orders',null,''),  (data) => {
+
+		$.getJSON(Path.gate('/orders',null,'/'),  (data) => {
+
+			console.log("order=>",data)
 			if (jQuery.isEmptyObject(data)) {
 				 //console.log('yes');
-				 $('.hm-mv-orders').empty();
+				 $('.all-orders').empty();
 			}else{
 				
-				$('.hm-mv-orders').empty();
-				$.each(data.orders,  (key, val) => {
-					$('.hm-mv-orders').append( `
+				$('.all-orders').empty();
+				$.each(data.data,  (key, val) => {
+					for(var h of fetched_houses){
+						if(h.id === val.property_id){
+							val.property_name = h.name
+						}
+					}
+					for(var u of fetched_users){
+						if(u.id === val.user_id){
+							val.user_name = u.name
+						}
+					}
+					$('.all-orders').append( `
 						<tr>
-							<th scope="row">#${val.order._id}</th>
-							<td>${val.user.name}</td>
-							<td><span class="badge rounded-pill bg-success-10 text-success custom-badge">${val.order.status}</span>
-							</td>
-							<td>${val.order.amount}</td>
+							<td>2</td>
+							<td><a href="#"><img src="/assets/images/avatar/1.jpg" class="avatar" alt="/assets/images/avatar/1.jpg"> ${val.user_name}</a></td>
+							<td>${val.property_name}</td>                       
+							
+							<td><span class="status text-info">&bull;</span> ${val.accepted === true ? "Accepted" : "Pending"}</td>
+							
+							<td><a href="javascript:void(0)" onclick="Service.updateOrder('${val.booking_id}', ${val.accepted})" class="view update-order" title="Accept/Reject" data-toggle="tooltip">${val.accepted ? "Cancel" : "Accept"}<i class="material-icons">&#xE5C8;</i></a></td>
+
 						</tr>
 					`);
 				 });
@@ -127,50 +144,136 @@ $(document).ready( () => {
 
 	Service.Orders();
 	Service.Income =  () => {
-		$.getJSON(Path.gate('orders',null,'/income'),  (data) => {
+
+		$.getJSON(Path.gate('/book',null,'/income/all'),  (data) => {
 			if (jQuery.isEmptyObject(data)) {
 				 //console.log('yes');
 			}else{
-				//console.log(data)
+				console.log("income",data)
 				$('.hm-recent-orders').empty();
 				$('.hm-trending-products').empty();
-				$('.hm-total-products').text(data.products.length);
-				$('.hm-total-orders').text(data.orders.length);
-				$('.hm-total-pending').text(data.pending.length);
-				$('.hm-total-sales').text(data.amount);
-				var i = 0
-				$.each(data.orders,  (key, val) => {
-					//if(i > 5){break}
-					i+=1
-					$('.hm-recent-orders').append( `
-						<tr>
-							<th scope="row">#${val._id}</th>
-							<td>${val.userId}</td>
-							<td><span class="badge rounded-pill bg-success-10 text-success custom-badge">${val.status}</span>
-							</td>
-						</tr>
-					`);
-				});
-				i = 0
-				$.each(data.products,  (key, val) => {
-					//if(i > 5){break}
-					i+=1
-					$('.hm-trending-products').append( `
-						<tr>
-							<th scope="row"><img src="/assets/images/dashboard/product/1.jpg" class="blur-up lazyloaded"></th>
-							<td>${val.title}</td>
-							<td>${val.price}</td>
-							<td>1000</td>
-						</tr>
-					`);
-				});
-				Service.roundedChart("chart-order",["Recent Orders","Pending Payments","Recieved Payments"],[data.invoice,data.invoice-data.amount,data.amount])
+				/*$('.total-products').text(data.products.length);
+				$('.total-orders').text(data.orders.length);
+				$('.total-pending').text(data.pending.length);
+				$('.total-sales').text(data.amount);*/
+				
+				//var i = 0
+				
+				//Service.roundedChart("chart-order",["Recent Orders","Pending Payments","Recieved Payments"],[data.invoice,data.invoice-data.amount,data.amount])
+
 			}
 		});
 	}
 
 	Service.Income();
-	console.log(fetched_subjects)
+
+	Service.Users = () =>{
+		$.getJSON(Path.gate('/users',null,'/'),  (data) => {
+			console.log(data)
+			if (jQuery.isEmptyObject(data)) {
+				 //console.log('yes');
+				 $('.all-users').empty();
+			}else{
+				
+				$('.all-users').empty();
+				$.each(data.data,  (key, val) => {
+					fetched_users.push({id:val.user_id,name:val.fullName})
+					$('.all-users').append( `
+						${JSON.stringify(val)}
+					`);
+				 });
+			}
+		});
+	}
+	Service.Users();
+	
+	Service.enquiryRoom = (id) => {
+		$.getJSON(Path.gate('/enquiries',null,'/'+id),  (data) => {
+			console.log("Enquiry",data)
+			if (jQuery.isEmptyObject(data)) {
+				 //console.log('yes');
+				// $('.enquiriy-room').empty();
+			}else{
+				
+				$('.enquiriy-room').empty();
+				let i = 1;
+				if(data.data){
+					let val = data.data
+					if(val.enquiry_id){
+						$("#enquiry_id").val(val.enquiry_id)
+					}
+					$('.enquiry-room').append(`<div class='reply-button' style="position:absolute;bottom: 1.5%;left: 0;width: 100%;text-align:center;"><button class="btn btn-primary reply-enquiry">Reply</button></div>`)
+					
+					
+					$('.enquiry-room').append(`
+						<div class="d-flex flex-row justify-content-start">
+							<img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava1-bg.webp"
+							  alt="${val.email}" style="width: 45px; height: 100%;">
+							<div>
+							  <p class="small p-2 ms-3 mb-1 rounded-3" style="background-color: #f5f6f7;">${val.content}</p>
+							  <p class="small ms-3 mb-3 rounded-3 text-muted float-end">${val.createdAt}</p>
+							</div>
+						 </div>
+					`)
+				}
+			}
+		});
+	}
+	
+	$('.reply-enquiry').click(function(){
+		let enquiry_id = $("#enquiry_id").val()
+		var x = ({
+					content:$('.enquiry-content').val(),
+					read:true,
+			   });
+         console.log(x);
+		if (x.content) {
+           $.patch(Path.gate('/enquiries',null,'/'+enquiry_id), JSON.stringify(x) ).done( ()=> {
+           	 Service.Enquiries();
+
+           });
+		}else{
+			alert("Missing content data")
+		}
+	})
+	
+	Service.Enquiries = () =>{
+		$.getJSON(Path.gate('/enquiries',null,'/'),  (data) => {
+			console.log("Enquiries",data)
+			if (jQuery.isEmptyObject(data)) {
+				 //console.log('yes');
+				// $('.all-enquiries').empty();
+			}else{
+				
+				$('.all-enquiries').empty();
+				$.each(data.data,  (key, val) => {
+					console.log(val)
+					$('.all-enquiries').append( `
+						<li class="p-2 border-bottom" onclick="Service.enquiryRoom('${val.enquiry_id}')">
+							<a href="#!" class="d-flex justify-content-between">
+							  <div class="d-flex flex-row">
+								<div>
+								  <img
+									src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava1-bg.webp"
+									alt="avatar" class="d-flex align-self-center me-3" width="60">
+								  <span class="badge bg-success badge-dot"></span>
+								</div>
+								<div class="pt-1">
+								  <p class="fw-bold mb-0">${val.email}</p>
+								  <p class="small text-muted">${val.title}</p>
+								</div>
+							  </div>
+							  
+							</a>
+						</li>
+					`);
+				 });
+			}
+		});
+	}
+	Service.Enquiries();
+	//console.log(fetched_subjects)
+
 })
 
 function hm_v_s_units(x,y,z) {
@@ -195,6 +298,9 @@ function hm_v_s_units(x,y,z) {
 
 // REMOVE DATA FROM ANY HILMACS DOCUMENT
 Service.del = (a,b) => {
+
+	console.log("del",a,b)
+
 	// hilmacs default comment
 	$.delete(Path.gate(b,null,'/'+a)).always( () => {
      $('.'+a+'_btn').removeClass('red');

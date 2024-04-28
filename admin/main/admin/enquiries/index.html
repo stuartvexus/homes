@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html ng-app>
+   <head>
+    <meta name="description" content="School Management System">
+    <meta name="keywords" content="school System">
+    
+    <meta name="author:" content="Et">
+    <link rel="shortcut icon" href="/img/logo.ico">
+    <link rel="stylesheet" href="/css/hilmacs.css" type="text/css"/>
+	<link rel="stylesheet" href="/finance_files/vendor-0eade7d9490cb657347e8219d2a4e785.css" integrity="" type="text/css">
+
+    <link rel="stylesheet" href="/finance_files/webapp-8a0cee2c8c0e5ff3b773a66185e55ed3.css" integrity="" type="text/css">
+	<link rel="stylesheet" href="css/properties.css"/>
+	<title> Enquiries </title>
+
+   </head>
+   <body>
+
+<div  >
+	<div id="content" class="app-content ng-scope"  role="main" ui-view="content@"><div class="box ng-scope">
+		  <!-- hilmacs Content Navbar -->
+		  <div w3-include-html="/templates/navTop" class="hm-nav-bar-top">&nbsp;</div>
+		  <!-- Content -->
+		  <div class="box-row">
+			<div class="box-cell">
+			  <!-- uiView:  --><div class="box-inner padding ng-scope" ui-view="" id="view"><!-- uiView:  --><div ui-view="" class="ng-scope">
+			<div class="row ng-scope">
+					<div class="col-md-3 hm-nav-bar-aside">
+						<div class="col-sm-12">
+						  <h5 class="no-margin m-b b">
+							Section overview</h5>
+						  <div class="list-group list-group-gap">
+							<a href="/superuser" class="list-group-item md-whiteframe-z1">
+							  <span class="mdi-action-home pull-left"></span><span  class="margin-3 lc-nav-home">  Home </span>
+							</a>
+							<a href="/products"  class="list-group-item md-whiteframe-z0">
+								<span class="mdi-exit pull-left"></span><span  class="margin-3 lc-nav-cprofile">  Properties </span> </span>
+							  </a>
+							  <a href="/enquiries"  class="list-group-item md-whiteframe-z0">
+								  <span class="mdi-exit pull-left"></span><span  class="margin-3 lc-nav-cprofile">  Enquiries</span> </span>
+								</a>
+							  <a href="/orders"  class="list-group-item md-whiteframe-z0">
+								<span class="mdi-exit pull-left"></span><span  class="margin-3 lc-nav-cprofile">   Bookings </span> </span>
+							  </a>
+							<!---<a href="/settings/company"  class="list-group-item md-whiteframe-z0 ">
+							  <span class="mdi-av-equalizer pull-left"></span><span  class="margin-3 lc-nav-cprofile">   Company Profile </span> 
+							</a>--->
+							<a href="/logout"  class="list-group-item md-whiteframe-z0">
+							  <span class="mdi-exit pull-left"></span><span  class="margin-3 lc-nav-cprofile">   Logout </span> 
+							</a>
+						  </div>
+						</div>
+					</div>
+					<div class="col-md-9 hm-c-1">
+						<span class="hm-data-a-auto-save save-ansyc hm-disp-off-5 pull-right ">
+						  <button type="button" class="btn btn-success hm-data-a-auto-save-btn">
+							 <span > AllEnquiriies</span>
+						  </button>
+						</span>
+						<div class="row">
+							
+								  <div class="container py-5">
+
+									<div class="row">
+									  <div class="col-md-12">
+
+										<div class="card" id="chat3" style="border-radius: 15px;">
+										  <div class="card-body">
+
+											<div class="row">
+											  <div class="col-md-6 col-lg-5 col-xl-4 mb-4 mb-md-0">
+
+												<div class="p-3">
+
+												  <div class="input-group rounded mb-3">
+													<input type="search" class="form-control rounded enquiry-search" placeholder="Search" aria-label="Search"
+													  aria-describedby="search-addon" />
+													<span class="input-group-text border-0" id="search-addon">
+													  <i class="fas fa-search"></i>
+													</span>
+												  </div>
+
+												  <div data-mdb-perfect-scrollbar="true" style="position: relative; height: 400px">
+													<ul class="list-unstyled mb-0 all-enquiries">
+													
+													</ul>
+												  </div>
+
+												</div>
+
+											  </div>
+
+											  <div class="col-md-6 col-lg-7 col-xl-8">
+												<input type="hidden" id="enquiry_id"/>
+												<div class="pt-3 pe-3 enquiry-room" data-mdb-perfect-scrollbar="true"
+												  style="position: relative; height: 400px;overflow-y:scroll;">
+
+												 
+												</div>
+
+												<div class="text-muted d-flex justify-content-start align-items-center pe-3 pt-3 mt-2">
+												  <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava6-bg.webp"
+													alt="avatar 3" style="width: 40px; height: 100%;">
+												  <input type="text" class="form-control form-control-lg enquiry-content" id="exampleFormControlInput2"
+													placeholder="Type message">
+
+												</div>
+
+											  </div>
+											</div>
+
+										  </div>
+										</div>
+
+									  </div>
+									</div>
+
+								  </div>
+								
+						</div>
+					</div>
+				</div>
+			 </div>
+			</div>
+			</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script src="/js/jquery.bundle.js"></script>
+<script src="/css/bootstrap/js/bootstrap.bundle.js"></script>
+<script src="/css/bootstrap/js/bootstrap.min.js"></script>
+<script src="js/jquery.bundle.js"></script>
+<scrip src="js/popper.min.js"></script>
+<script src="js/admin.min.js"></script>		
+</body>
+</html>

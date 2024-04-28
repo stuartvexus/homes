@@ -8,4 +8,5 @@ export const setFastifyStatic = function (fastify) {
     root: path.join(__dirname, "uploads"),
     prefix: "/uploads",
   });
+  
 };

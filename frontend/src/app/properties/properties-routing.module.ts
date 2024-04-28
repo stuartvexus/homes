@@ -15,7 +15,7 @@ const routes: Routes = [
     component: PropertiesDetailComponent
   },
   {
-    path: ':id/pay',
+    path: 'pay/:id',
     component: PropertiesPayComponent
   }
 ];

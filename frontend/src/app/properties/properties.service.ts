@@ -9,11 +9,8 @@ import { headerDict } from '../shared/utility';
 import { UserService } from '../user/user.service';
 
 const propertyUrl = environment.api.server + 'properties';
-const requestOptions = (
-  { token = '', contentType = 'application/json' },
-  body = {}
-) => ({
-  headers: new HttpHeaders(headerDict({ token, contentType })),
+const requestOptions = (token = '', body = {}) => ({
+  headers: new HttpHeaders(headerDict({ token })),
   body,
 });
 
@@ -87,7 +84,7 @@ export class PropertiesService {
         this.http.post<ResProperty>(
           propertyUrl,
           property,
-          requestOptions({ token })
+          requestOptions(token )
         )
       );
 
@@ -113,7 +110,7 @@ export class PropertiesService {
         this.http.post<ResStrings>(
           propertyUrl + '/upload/images/' + id,
           formData,
-          requestOptions({ token, contentType: null })
+          requestOptions( token,  null )
         )
       );
     } catch (error) {
@@ -130,7 +127,7 @@ export class PropertiesService {
     try {
       const url = `${propertyUrl}/upload/images/${propId}`;
       const res = await firstValueFrom(
-        this.http.delete<ResStrings>(url, requestOptions({ token }, { images }))
+        this.http.delete<ResStrings>(url, requestOptions(token ,  images ))
       );
 
       this.property.images = this.property.images.filter(
@@ -145,9 +142,12 @@ export class PropertiesService {
   public async bookProperty(propId: string): Promise<void> {
     const token = this.userService.token();
     try {
-      const url = `${propertyUrl}/book/${propId}`;
+
+      const headers = { authorization: `Bearer ${token}` };
+    
+      const url = `${propertyUrl.replace('properties','book')}/${propId}`;
       const res = await firstValueFrom(
-        this.http.post<ResProperty>(url, requestOptions({ token }))
+        this.http.post<ResProperty>(url+"?token="+token, requestOptions(token))
       );
 
       this.properties = this.properties
@@ -161,7 +161,7 @@ export class PropertiesService {
     try {
       const url = `${propertyUrl}/${propId}`;
       const res = await firstValueFrom(
-        this.http.delete<ResProperty>(url, requestOptions({ token }))
+        this.http.delete<ResProperty>(url, requestOptions( token ))
       );
 
       this.properties = this.properties.filter(
@@ -177,7 +177,7 @@ export class PropertiesService {
     try {
       const token = this.userService.token();
       const res = await firstValueFrom(
-        this.http.patch<ResProperty>(url, updated, requestOptions({ token }))
+        this.http.patch<ResProperty>(url, updated, requestOptions( token ))
       );
 
       // UPDATE CURRENT PROPERTIES

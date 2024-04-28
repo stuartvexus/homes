@@ -103,9 +103,35 @@
 
         <ion-col size="12" sizeXl="4">
           <div class="mortgage-container">
-            <app-mortgage-core-calc
+
+            <app-properties-pay
               (book)="bookLocation()"
-            ></app-mortgage-core-calc>
+            ></app-properties-pay>
+
+            <ion-card class="find-map-card">
+              <ion-card-header>
+                <ion-card-title color="light">Book now</ion-card-title>
+              </ion-card-header>
+
+              <ion-card-content>
+                <form (ngSubmit)="bookLocation()">
+                  <div>
+                  <label for="cardNumber">Phone Number:</label><br>
+                  <input type="text"  class="form-control" style="padding: 9px;"id="cardNumber" name="Number" readonly>
+                  </div>
+                  <div>
+                  <label for="expiry">Your Name:</label><br>
+                  <input type="text" id="expiry" class="form-control" style="padding:9px;"name="Name" placeholder="Your name" readonly>
+                  </div><br>
+                  <ion-button expand="block" size="large" (click)="bookLocation()">
+                    
+                    Book Now
+                  </ion-button>
+                 
+                </form>
+              </ion-card-content>
+            </ion-card>
+
 
             <ion-card class="find-map-card">
               <ion-card-header>
@@ -125,6 +151,7 @@
                 </ion-button>
               </ion-card-content>
             </ion-card>
+            
           </div>
         </ion-col>
       </ion-row>

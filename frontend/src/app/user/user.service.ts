@@ -64,7 +64,7 @@ export class UserService {
     }
   }
 
-  public async register(fullName: string, email: string, password: string) {
+  public async register(fullName: string, email: string,phone: string, password: string) {
     try {
       const result = await firstValueFrom(
         this.http.post<User>(
@@ -72,6 +72,7 @@ export class UserService {
           {
             fullName,
             email,
+			phone,
             password,
           },
           requestOptions

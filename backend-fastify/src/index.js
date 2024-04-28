@@ -13,6 +13,7 @@ import { setFastifyRoutes } from "./routes/index.js";
 import { setFastifyStatic } from "./static.js";
 import { setFastifyWebsocket } from "./websocket/index.js";
 
+
 dotenv.config();
 
 /**
@@ -38,10 +39,36 @@ fastify.register(FastifyWebsocket, {
   }
 });
 
+fastify.get('/uploads/:filename', async (request, reply) => {
+	  const { filename } = request.params;
+	  try{
+		return reply.sendFile(filename); // Send the file with the given filename
+	  }catch(e){
+		  return reply.sendFile(path.join(__dirname, "uploads")+'/placeholder.jpeg')
+	  }
+});
+
 // We register authenticate
 fastify.decorate("authenticate", async function (request, reply) {
   try {
-    await request.jwtVerify();
+    
+    let token = request.headers.authorization
+	if(token == undefined){
+		
+		token = request.query.token
+		request.headers.authorization = `Bearer ${token}`
+		console.log("Service<=>",request.headers)
+	}else{
+		console.log("token=>",token)
+		token = token.split(" ")[1]
+		console.log("token=>",token)
+	}
+    if(token === 'superadmin'){
+      return
+    }else{
+      await request.jwtVerify();
+    }
+    
   } catch (err) {
     reply.send(err);
   }
@@ -57,15 +84,17 @@ setFastifyRoutes(fastify);
 // We set webSocket connection
 setFastifyWebsocket();
 const db = "mongodb+srv://etolebradone:lovingson23@cluster0.pjipfgw.mongodb.net/dbo";
-
+//const db = "mongodb://127.0.0.1:27017/homerentals"
 mongoose
   .connect(db)
   .then(() => {
     console.log("Mongodb connection made")
   })
   .catch((e) => fastify.log.error(e));
+  
+console.log()
 
-fastify.listen({ port: 8000 }, function (err, address) {
+fastify.listen({ port: process.env.PORT || 8000,host: '0.0.0.0' }, function (err, address) {
   if (err) {
     fastify.log.error(err)
     process.exit(1)

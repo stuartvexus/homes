@@ -11,6 +11,11 @@ const userSchema = new mongoose.Schema(
       minlength: 4,
       required: true,
     },
+	phone: {
+      type: String,
+      minlength: 9,
+      
+    },
     email: {
       type: String,
       required: true,
@@ -22,6 +27,9 @@ const userSchema = new mongoose.Schema(
     },
     properties: {
       type: Array,
+    },
+    bookings:{
+      type:Array,
     },
     isAdmin:{
       type:Boolean,
