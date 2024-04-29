@@ -15,6 +15,7 @@ export const bookingProperties = {
   type: "object",
   properties: {
     property_id: { type: "string" },
+	property:{type:"object"},
     name: { type: "string" },
 	name:{type:"string"},
 	amount: {type:"number"},

@@ -20,6 +20,7 @@ import {
     getUserInvoice,
     getInvoices,
     getOrders,
+	getUserOrders,
   } from "../../controllers/bookings/index.js";
   
   export const bookRoutes = function (fastify, opts, done) {
@@ -40,5 +41,6 @@ import {
   
   export const orderRoutes = (fastify,opts,done) =>{
       fastify.get("/",getOrders);
+	  fastify.get("/user",getUserOrders);
       done();
   }

@@ -52,7 +52,7 @@ export const getUserBookings = async function (req, res) {
 	for(var book of bookings){
 		
 		if(book.property_id){
-			const house = await Property.findById(book.property_id)
+			const house = await Property.findOne({property_id:book.property_id})
 			book.property = house
 		}
 		
@@ -60,6 +60,7 @@ export const getUserBookings = async function (req, res) {
 	}
     res.status(200).send({ data: property });
   } catch (error) {
-    res.status(404).send({});
+	  console.log(error)
+    res.status(500).send('SERVER ERROR');
   }
 };
