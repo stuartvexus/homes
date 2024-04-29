@@ -6,7 +6,7 @@ export const deleteBookingOpts = (fastify, handler) => ({
   schema: {
     response: {
       200: responseSuccess({
-        message: "Property deleted!",
+        message: "Booking deleted!",
         data: bookingProperties
       }),
       400: responseError(),
