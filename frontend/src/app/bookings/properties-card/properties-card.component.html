@@ -3,7 +3,17 @@
     Owned
   </div>
 
-  
+	<img
+    class="profile-image"
+    [src]="generateImageUrl(property?.property?.images[0])"
+    *ngIf="property?.property?.images?.length"
+  />
+  <img
+    class="profile-image ion-padding-vertical"
+    [src]="'assets/images/no-image.jpeg'"
+    *ngIf="!property?.property?.images || !property?.property?.images.length"
+  />
+
   <ion-card-header>
     <app-property-badge [type]="property?.property?.type"></app-property-badge>
     <ion-card-title class="name">
@@ -16,11 +26,15 @@
   </ion-card-header>
 
   <ion-card-content>
-	  <div class="tag" *ngIf="userService.user?.user_id === property.user_id">
-		Booked
-	  </div>
+    <div class="desc">
+      {{ property?.property?.description }}
+    </div>
+
+    <div class="price">
+      {{ property?.property?.price | currency: property?.property?.currency }}
+    </div>
     <ion-button
-      (click)="selectProperty(property)"
+      (click)="payBooking(property)"
       expand="block"
       class="ion-margin-top"
       color="primary"
@@ -40,5 +54,17 @@
       color="primary"
 	  *ngIf="property.accepted === false"
     >Pending Approval</ion-button>
+	<ion-button
+      (click)="selectProperty(property)"
+      expand="block"
+      class="ion-margin-top"
+      color="primary"
+    >
+      View property
+    </ion-button>
+	<a href="javascript:void(0)" (click)="deleteBooking(property)">
+			Delete
+	</a>
   </ion-card-content>
+  
 </ion-card>

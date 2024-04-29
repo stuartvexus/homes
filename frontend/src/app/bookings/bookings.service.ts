@@ -94,6 +94,7 @@ export class PropertiesService {
       );
 
       this.properties = [...this.properties, res.data];
+	  
       return res;
     } catch (error) {
       console.error(error);
@@ -101,64 +102,24 @@ export class PropertiesService {
     }
   }
 
-  public async addPropertyImage(
-    files: File[],
-    id: string
-  ): Promise<ResStrings> {
-    const formData = new FormData();
-    files.forEach((file) => {
-      formData.append('images', file, file.name);
-    });
-    try {
-      const token = this.userService.token();
-      return await firstValueFrom(
-        this.http.post<ResStrings>(
-          propertyUrl + '/upload/images/' + id,
-          formData,
-          requestOptions({ token, contentType: null })
-        )
-      );
-    } catch (error) {
-      console.error(error);
-      return error.error || error;
-    }
-  }
-
-  public async deletePropertyImage(
-    images: string[],
-    propId: string
-  ): Promise<ResStrings> {
-    const token = this.userService.token();
-    try {
-      const url = `${propertyUrl}/upload/images/${propId}`;
-      const res = await firstValueFrom(
-        this.http.delete<ResStrings>(url, requestOptions({ token }, { images }))
-      );
-
-      this.property.images = this.property.images.filter(
-        (img) => !res.data.includes(img)
-      );
-      return res;
-    } catch (error) {
-      console.error(error);
-    }
-  }
+ 
   
-  public async bookProperty(propId: string): Promise<void> {
+  public async payBooking(propId: string): Promise<void> {
     const token = this.userService.token();
     try {
       const url = `${propertyUrl}/book/pay/${propId}`;
       const res = await firstValueFrom(
-        this.http.post<ResProperty>(url, requestOptions({ token }))
+        this.http.post<ResProperty>(url+`token=${token}`, requestOptions({ token }))
       );
 
       this.properties = this.properties
+	  return res
     } catch (error) {
       console.error(error);
     }
   }
 
-  public async removeProperty(propId: string): Promise<void> {
+  public async removeBooking(propId: string): Promise<void> {
     const token = this.userService.token();
     try {
       const url = `${propertyUrl}/${propId}`;

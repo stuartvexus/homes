@@ -7,7 +7,7 @@ import {
   ToastController,
 } from '@ionic/angular';
 
-import { Property } from 'src/app/shared/interface/property';
+import { Property } from 'src/app/shared/interface/booking';
 import { PropertiesService } from '../bookings.service';
 import { ActionPopupComponent } from 'src/app/shared/components/action-popup/action-popup.component';
 import { PropertiesEditComponent } from '../properties-edit-modal/properties-edit.component';
@@ -83,26 +83,26 @@ export class PropertiesDetailComponent implements OnInit, OnDestroy {
       return;
     }
     if (data.action === 'delete') {
-      this.propertiesService.removeProperty(this.property.property_id);
-      this.presentToast('Success,property deleted');
+      this.propertiesService.removeBooking(this.property.property_id);
+      this.presentToast('Success,Booking deleted');
       this.router.navigate(['/properties']);
     }
     if (data.action === 'edit') {
       this.editModal();
     }
 	if (data.action === 'book') {
-      this.propertiesService.bookProperty(this.property.property_id);
+      this.propertiesService.addProperty(this.property.property_id);
       this.presentToast('Success,property Booked');
-      this.router.navigate(['/properties/pay'+this.property.property_id]);
+      this.router.navigate(['/book/'+this.property.property_id]);
     }
     if (data.action === 'report') {
       this.presentToast('Success, we will take a look at this property.');
     }
   }
   public async bookLocation(){
-    this.propertiesService.bookProperty(this.property.property_id);
+    this.propertiesService.addProperty(this.property.property_id);
       this.presentToast('Success,property Booked');
-      this.router.navigate(['/properties/pay'+this.property.property_id]);
+      this.router.navigate(['/book/'+this.property.property_id]);
   }
 
   

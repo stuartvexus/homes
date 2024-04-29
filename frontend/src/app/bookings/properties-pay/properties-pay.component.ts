@@ -7,7 +7,7 @@ import {
   ToastController,
 } from '@ionic/angular';
 
-import { Property } from 'src/app/shared/interface/property';
+import { Property } from 'src/app/shared/interface/booking';
 import { PropertiesService } from '../bookings.service';
 import { ActionPopupComponent } from 'src/app/shared/components/action-popup/action-popup.component';
 import { PropertiesEditComponent } from '../properties-edit-modal/properties-edit.component';
