@@ -31,7 +31,7 @@ import {
     fastify.get("/user", getBookingsOpts(getUserBookings));
     fastify.get("/:id", getBookingOpts(fastify,getBooking));
     //fastify.post("/", createBookingOpts(fastify, createBooking));
-	fastify.post("pay/:id", createInvoiceOpts(fastify, createInvoice));
+	fastify.post("/pay/:id", createInvoiceOpts(fastify, createInvoice));
     fastify.post("/:id", createBookingOpts(fastify, createBooking));
     fastify.patch("/:id", updateBookingOpts(fastify, updateBooking));
     fastify.delete("/:id", deleteBookingOpts(fastify, deleteBooking));
