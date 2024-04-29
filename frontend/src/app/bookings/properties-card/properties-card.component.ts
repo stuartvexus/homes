@@ -28,10 +28,17 @@ export class PropertiesCardComponent implements OnInit {
   ngOnInit() {
 		
 	}
-  public payBooking(property: Booking) {
-	  let res = this.bookingsService.payBooking(this.property.booking_id);
-    this.bookingsService.property = property;
-    this.presentToast('Request initiatied, processing');
+  public async payBooking(property: Booking) {
+    let toast = this.presentToast
+    this.presentToast(`Request initiated `);
+	  this.bookingsService.payBooking(this.property.booking_id,function(res:string){
+      alert(res)
+      
+    });
+    //this.bookingsService.property = property;
+    //onsole.log(res)
+    
+    
     //this.router.navigate(['/bookings', property.booking_id]);
   }
   

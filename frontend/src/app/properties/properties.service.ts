@@ -151,7 +151,7 @@ export class PropertiesService {
       );
 
       this.properties = this.properties
-        return res.message;
+      return res.message;
     } catch (error) {
       console.error(error);
     }

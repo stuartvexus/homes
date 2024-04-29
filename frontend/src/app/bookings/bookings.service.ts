@@ -104,7 +104,7 @@ export class PropertiesService {
 
  
   
-  public async payBooking(propId: string): Promise<String> {
+  public async payBooking(propId: string,next:Function): Promise<void> {
     const token = this.userService.token();
     try {
       const url = `${propertyUrl}/pay/${propId}`;
@@ -112,8 +112,8 @@ export class PropertiesService {
         this.http.post<ResProperty>(url+`?token=${token}`, requestOptions({ token }))
       );
 
-      this.properties = this.properties
-      return res.message
+      //this.properties = this.properties
+      next(res.message)
     } catch (error) {
       console.error(error);
     }

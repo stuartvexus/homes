@@ -31,7 +31,7 @@
     </div>
 
     <div class="price">
-      {{ property?.price | currency: "PHP" }}
+      {{ property?.price | currency: property?.currency }}
     </div>
     <ion-button
       (click)="selectProperty(property)"

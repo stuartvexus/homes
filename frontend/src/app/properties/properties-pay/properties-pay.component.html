@@ -41,20 +41,7 @@
             *ngIf="property.images"
             #propertiesGallery
           ></app-properties-gallery>
-		<form (ngSubmit)="processPayment()">
-		  <div>
-			<label for="cardNumber">Phone Number:</label>
-			<input type="text" id="cardNumber" name="Number" required>
-		  </div>
-		  <div>
-			<label for="expiry">Your Name:</label>
-			<input type="text" id="expiry" name="Name" placeholder="Your name" required>
-		  </div>
-
-		  <button type="submit">Pay Now</button>
-		</form>
-
-          
+	
       </ion-row>
     </ion-grid>
   </div>

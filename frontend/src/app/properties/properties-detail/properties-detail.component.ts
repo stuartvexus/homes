@@ -7,6 +7,13 @@ import {
   ToastController,
 } from '@ionic/angular';
 
+import {
+  UntypedFormGroup,
+  UntypedFormBuilder,
+  Validators,
+} from '@angular/forms';
+import { CustomValidatorsDirective } from 'src/app/shared/directives/custom-validators.directive';
+
 import { Property } from 'src/app/shared/interface/property';
 import { PropertiesService } from '../properties.service';
 import { ActionPopupComponent } from 'src/app/shared/components/action-popup/action-popup.component';
@@ -30,8 +37,11 @@ export class PropertiesDetailComponent implements OnInit, OnDestroy {
   public isOwner = false;
   public ready = false;
   private unsubscribe$ = new Subject<void>();
+  public payForm: UntypedFormGroup;
 
   constructor(
+    private fb: UntypedFormBuilder,
+    private customValidators: CustomValidatorsDirective,
     public location: Location,
     private userService: UserService,
     private router: Router,
@@ -40,7 +50,14 @@ export class PropertiesDetailComponent implements OnInit, OnDestroy {
     public modalController: ModalController,
     private toastCtrl: ToastController,
     private route: ActivatedRoute
-  ) {}
+  ) {
+    this.payForm = this.fb.group(
+      {
+        phone: ['', [Validators.required, Validators.minLength(10)]],
+        name: ['', [Validators.required, Validators.minLength(4)]],
+      }
+    )
+  }
 
   async ngOnInit() {
     const paramId = this.route.snapshot.paramMap.get('id');
@@ -64,6 +81,27 @@ export class PropertiesDetailComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.unsubscribe$.next();
     this.unsubscribe$.complete();
+  }
+
+  public async processPayment() {
+    // Add your payment processing logic here
+    if (this.payForm.invalid) {
+      //this.error = true;
+      return;
+    }
+    
+    const { name,phone} = this.payForm.value;
+   
+    const result = await this.propertiesService.bookProperty(this.property.property_id,{phone:phone,name:name});
+    if (result) {
+      //loading.dismiss();
+      //await this.presentToast(result);
+      //await this.router.navigateByUrl('/user/account/profile');
+      return;
+    }
+    //await this.presentToast('Error:' + result, 'danger');
+    //loading.dismiss();
+    console.log('Payment processed!');
   }
 
   public async actionPopup() {
@@ -97,8 +135,8 @@ export class PropertiesDetailComponent implements OnInit, OnDestroy {
   }
   public async bookLocation(){
 
-    this.propertiesService.bookProperty(this.property.property_id,{});
-      this.presentToast('Success,property Booked');
+    let res = await this.propertiesService.bookProperty(this.property.property_id,{});
+      this.presentToast(`${res}`);
       this.router.navigate(['/properties/pay/'+this.property.property_id]);
   }
 
