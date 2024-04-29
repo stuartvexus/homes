@@ -3,6 +3,11 @@ import { Router } from '@angular/router';
 import { PropertiesService } from 'src/app/bookings/bookings.service';
 import { Booking } from 'src/app/shared/interface/booking';
 import { UserService } from 'src/app/user/user.service';
+import {
+  ModalController,
+  PopoverController,
+  ToastController,
+} from '@ionic/angular';
 
 
 @Component({
@@ -16,22 +21,25 @@ export class PropertiesCardComponent implements OnInit {
   constructor(
     private bookingsService: PropertiesService,
     private router: Router,
-    public userService: UserService
+    public userService: UserService,
+    private toastCtrl: ToastController
   ) { }
 
   ngOnInit() {
 		
 	}
   public payBooking(property: Booking) {
-	this.bookingsService.payBooking(this.property.booking_id);
+	  let res = this.bookingsService.payBooking(this.property.booking_id);
     this.bookingsService.property = property;
-    this.router.navigate(['/book', property.booking_id]);
+    this.presentToast('Request initiatied, processing');
+    //this.router.navigate(['/bookings', property.booking_id]);
   }
   
   public deleteBooking(property: Booking) {
 	this.bookingsService.removeBooking(this.property.booking_id);
     this.bookingsService.property = property;
-    this.router.navigate(['/book']);
+    this.bookingsService.fetchProperties()
+    this.router.navigate(['/map']);
   }
   
   public generateImageUrl(imageUrl: string): string {
@@ -52,6 +60,18 @@ export class PropertiesCardComponent implements OnInit {
   public selectProperty(property: Booking) {
 	//this.bookingsService.addProperty(this.property.property_id);
     this.bookingsService.property = property;
-    this.router.navigate(['/book', property.booking_id]);
+    this.router.navigate(['/properties', property.property_id]);
+  }
+  private async presentToast(
+    message: string,
+    color = 'success',
+    duration = 3000
+  ) {
+    const toast = await this.toastCtrl.create({
+      message,
+      duration,
+      color,
+    });
+    toast.present();
   }
 }

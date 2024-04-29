@@ -139,7 +139,7 @@ export class PropertiesService {
     }
   }
   
-  public async bookProperty(propId: string): Promise<void> {
+  public async bookProperty(propId: string,data : object): Promise<String> {
     const token = this.userService.token();
     try {
 
@@ -147,11 +147,11 @@ export class PropertiesService {
     
       const url = `${propertyUrl.replace('properties','book')}/${propId}`;
       const res = await firstValueFrom(
-        this.http.post<ResProperty>(url+"?token="+token, requestOptions(token))
+        this.http.post<ResProperty>(url+"?token="+token, requestOptions(token),data)
       );
 
       this.properties = this.properties
-	  
+        return res.message;
     } catch (error) {
       console.error(error);
     }

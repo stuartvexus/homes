@@ -72,11 +72,11 @@ mongoose
     res.redirect("/login")
   });
   app.get("/", verifyToken,async (req, res) => {
-    res.render("vendordashboard",{user:req.session.user});
+    res.render("index.html",{user:req.session.user});
   });
   app.get("/superuser",verifyToken, async (req, res) => {
 	  console.log(req.session.user)
-    res.render("vendordashboard",{user:req.session.user});
+    res.render("index.html",{user:req.session.user});
   });
   app.get("/login", async (req, res) => {
     req.session.success = null
@@ -84,7 +84,9 @@ mongoose
     res.render('login.html',{success_msg:null,error:null,error_msg:null});
   });
   app.get("/register", async (req, res) => {
-    res.sendFile(path.join(__dirname,'admin/register.html'));
+    req.session.success = null
+    req.session.error = null
+    res.render('register.html',{success_msg:null,error:null,error_msg:null});
   });
   app.get("/settings/company", async (req, res) => {
     res.sendFile(path.join(__dirname,'admin/settings/company/index.html'));

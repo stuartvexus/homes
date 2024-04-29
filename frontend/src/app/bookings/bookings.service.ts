@@ -104,16 +104,16 @@ export class PropertiesService {
 
  
   
-  public async payBooking(propId: string): Promise<void> {
+  public async payBooking(propId: string): Promise<String> {
     const token = this.userService.token();
     try {
-      const url = `${propertyUrl}/book/pay/${propId}`;
+      const url = `${propertyUrl}/pay/${propId}`;
       const res = await firstValueFrom(
-        this.http.post<ResProperty>(url+`token=${token}`, requestOptions({ token }))
+        this.http.post<ResProperty>(url+`?token=${token}`, requestOptions({ token }))
       );
 
       this.properties = this.properties
-	 
+      return res.message
     } catch (error) {
       console.error(error);
     }

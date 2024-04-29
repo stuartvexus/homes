@@ -17,16 +17,32 @@ export class PropertiesGalleryComponent implements OnInit {
     this.setImage();
   }
 
+  public generateImageUrl(imageUrl: string): string {
+    const server_url = `https://estateserver-5e37ae72f4d9.herokuapp.com/`
+    if (imageUrl) {
+      // If the image URL includes 'http://localhost:8000', replace it with the target URL
+      imageUrl = imageUrl.replace('http://localhost:8000', server_url);
+      // Concatenate the target URL if it's not already included
+      if (!imageUrl.startsWith(server_url)) {
+        imageUrl = server_url + imageUrl;
+      }
+      return imageUrl;
+    } else {
+      // Return a default image URL or an empty string if no image URL is provided
+      return //'default-image-url.jpg'; // or return ''
+    }
+  }
+
   public getImage(image: string) {
-    image = image || 'assets/images/no-image.jpeg';
+    image = this.generateImageUrl(image) || 'assets/images/no-image.jpeg';
     return `url(${image})`;
   }
 
   public setSelected(image: string) {
-    this.imagePresented = image || 'assets/images/no-image.jpeg';
+    this.imagePresented = this.generateImageUrl(image) || 'assets/images/no-image.jpeg';
   }
 
   public setImage() {
-    this.imagePresented = this.images[0] || 'assets/images/no-image.jpeg';
+    this.imagePresented = this.generateImageUrl(this.images[0]) || 'assets/images/no-image.jpeg';
   }
 }

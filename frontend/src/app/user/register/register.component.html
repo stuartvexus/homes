@@ -46,11 +46,29 @@
               ></ion-input>
             </ion-item>
 
+          
             <div
               class="alert-errors"
               *ngIf="registerForm.get('email').errors"
             >
               <app-alert-card content="Email is not valid. ex: name@email.com"></app-alert-card>
+            </div>
+
+            <ion-item>
+              <ion-input
+                type="number"
+                
+                labelPlacement="floating"
+                label="Phone"
+                formControlName="phone"
+              ></ion-input>
+            </ion-item>
+
+            <div
+              class="alert-errors"
+              *ngIf="registerForm.get('phone').errors"
+            >
+              <app-alert-card content="Phone is not valid. ex: 0712345678"></app-alert-card>
             </div>
 
             <ion-item>

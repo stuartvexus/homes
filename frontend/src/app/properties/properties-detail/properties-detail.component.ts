@@ -90,20 +90,14 @@ export class PropertiesDetailComponent implements OnInit, OnDestroy {
     if (data.action === 'edit') {
       this.editModal();
     }
-	if (data.action === 'book') {
-      this.propertiesService.bookProperty(this.property.property_id);
-      this.presentToast('Success,property Booked');
-
-      this.router.navigate(['/properties/pay/'+this.property.property_id]);
-
-    }
+	
     if (data.action === 'report') {
       this.presentToast('Success, we will take a look at this property.');
     }
   }
   public async bookLocation(){
 
-    this.propertiesService.bookProperty(this.property.property_id);
+    this.propertiesService.bookProperty(this.property.property_id,{});
       this.presentToast('Success,property Booked');
       this.router.navigate(['/properties/pay/'+this.property.property_id]);
   }
