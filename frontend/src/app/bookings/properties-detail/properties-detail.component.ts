@@ -7,7 +7,7 @@ import {
   ToastController,
 } from '@ionic/angular';
 
-import { Property } from 'src/app/shared/interface/booking';
+import { Booking } from 'src/app/shared/interface/booking';
 import { PropertiesService } from '../bookings.service';
 import { ActionPopupComponent } from 'src/app/shared/components/action-popup/action-popup.component';
 import { PropertiesEditComponent } from '../properties-edit-modal/properties-edit.component';
@@ -26,7 +26,7 @@ import { PropertiesPayComponent} from "../properties-pay/properties-pay.componen
 export class PropertiesDetailComponent implements OnInit, OnDestroy {
   @ViewChild('propertiesGallery') propertiesGallery: PropertiesGalleryComponent;
   @ViewChild('propertiesPay') propertiesPay: PropertiesPayComponent;
-  public property: Property | undefined;
+  public property: Booking| undefined;
   public isOwner = false;
   public ready = false;
   private unsubscribe$ = new Subject<void>();
@@ -91,7 +91,7 @@ export class PropertiesDetailComponent implements OnInit, OnDestroy {
       this.editModal();
     }
 	if (data.action === 'book') {
-      this.propertiesService.addProperty(this.property.property_id);
+      //this.propertiesService.addProperty(this.property.property_id);
       this.presentToast('Success,property Booked');
       this.router.navigate(['/book/'+this.property.property_id]);
     }
@@ -100,15 +100,15 @@ export class PropertiesDetailComponent implements OnInit, OnDestroy {
     }
   }
   public async bookLocation(){
-    this.propertiesService.addProperty(this.property.property_id);
+    //this.propertiesService.addProperty(this.property.property_id);
       this.presentToast('Success,property Booked');
       this.router.navigate(['/book/'+this.property.property_id]);
   }
 
   
   public findInMap() {
-    const { lat, lng } = this.property.position;
-    this.router.navigate(['/map'], { queryParams: { lat, lng } });
+    //const { lat, lng } = this.property.position;
+   // this.router.navigate(['/map'], { queryParams: { lat, lng } });
   }
 
   public async editImages() {

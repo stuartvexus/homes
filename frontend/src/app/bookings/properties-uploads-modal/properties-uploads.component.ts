@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ModalController, ToastController } from '@ionic/angular';
-import { Property } from 'src/app/shared/interface/property';
+import { Booking } from 'src/app/shared/interface/booking';
 import { PropertiesService } from '../bookings.service';
 
 @Component({
@@ -9,7 +9,7 @@ import { PropertiesService } from '../bookings.service';
   styleUrls: ['./properties-uploads.component.scss'],
 })
 export class PropertiesUploadsComponent implements OnInit {
-  @Input() property: Property;
+  @Input() property: Booking;
   public previews = [];
   public selectedFiles: File[];
 
@@ -47,17 +47,7 @@ export class PropertiesUploadsComponent implements OnInit {
     if (!this.selectedFiles) {
       return this.presentToast('Please, select images to upload.', 300, 'danger');
     }
-    const res = await this.propertiesService
-      .addPropertyImage(this.selectedFiles, this.property.property_id);
-    if (!res || res.status !== 201) {
-      const msg = 'Error: Something went wrong, please try again later.';
-      this.presentToast(`Error: ${res.message || msg}`, 3000, 'danger');
-      this.modalCtrl.dismiss();
-      return;
-    }
-    this.property.images = res.data;
-    this.propertiesService.updateProperty(this.property);
-    this.presentToast(res.message || 'Success: Image uploaded');
+    
     this.modalCtrl.dismiss();
   }
 
