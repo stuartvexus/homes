@@ -16,8 +16,8 @@ export const getBookingOpts = (fastify,handler) => ({
   handler: handler,
 });
 
-export const getBookingsOpts = (fastify,handler) => ({
-  preValidation: [fastify.authenticate],
+export const getBookingsOpts = (handler) => ({
+  
   schema: {
     response: {
       200: responseSuccess({
