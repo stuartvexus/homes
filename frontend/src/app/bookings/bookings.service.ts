@@ -4,7 +4,7 @@ import { BehaviorSubject, Observable, firstValueFrom } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { ApiResponse } from '../shared/interface/api-response';
 // import { properties as dummyData } from '../shared/dummy-data';
-import { Property } from '../shared/interface/property';
+import { Booking } from '../shared/interface/booking';
 import { headerDict } from '../shared/utility';
 import { UserService } from '../user/user.service';
 
@@ -18,11 +18,11 @@ const requestOptions = (
 });
 
 interface ResProperty extends ApiResponse {
-  data: Property;
+  data: Booking;
 }
 
 interface ResProperties extends ApiResponse {
-  data: Property[];
+  data: Booking[];
 }
 
 interface ResStrings extends ApiResponse {
@@ -33,10 +33,10 @@ interface ResStrings extends ApiResponse {
   providedIn: 'root',
 })
 export class PropertiesService {
-  public readonly properties$: Observable<Property[]>;
-  public readonly property$: Observable<Property>;
-  private readonly propertiesSub = new BehaviorSubject<Property[]>([]);
-  private readonly propertySub = new BehaviorSubject<Property>(null);
+  public readonly properties$: Observable<Booking[]>;
+  public readonly property$: Observable<Booking>;
+  private readonly propertiesSub = new BehaviorSubject<Booking[]>([]);
+  private readonly propertySub = new BehaviorSubject<Booking>(null);
 
   constructor(private http: HttpClient, private userService: UserService) {
     this.properties$ = this.propertiesSub.asObservable();
@@ -44,19 +44,19 @@ export class PropertiesService {
     this.fetchProperties();
   }
 
-  public get properties(): Property[] {
+  public get properties(): Booking[] {
     return this.propertiesSub.getValue();
   }
 
-  public set properties(property: Property[]) {
+  public set properties(property: Booking[]) {
     this.propertiesSub.next(property);
   }
 
-  public get property(): Property | null {
+  public get property(): Booking | null {
     return this.propertySub.getValue();
   }
 
-  public set property(property: Property) {
+  public set property(property: Booking) {
     this.propertySub.next(property);
   }
 
@@ -82,7 +82,7 @@ export class PropertiesService {
     }
   }
 
-  public async addProperty(property: Property): Promise<ResProperty> {
+  public async addProperty(property: Booking): Promise<ResProperty> {
     const token = this.userService.token();
     try {
       const res = await firstValueFrom(
@@ -113,7 +113,7 @@ export class PropertiesService {
       );
 
       this.properties = this.properties
-	  return res
+	 
     } catch (error) {
       console.error(error);
     }
@@ -135,7 +135,7 @@ export class PropertiesService {
     }
   }
 
-  public async updateProperty(updated: Property): Promise<ResProperty> {
+  public async updateProperty(updated: Booking): Promise<ResProperty> {
     const url = `${propertyUrl}/${updated.property_id}`;
     try {
       const token = this.userService.token();

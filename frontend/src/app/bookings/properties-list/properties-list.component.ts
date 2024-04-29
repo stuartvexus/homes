@@ -2,7 +2,7 @@ import { ChangeDetectorRef, Component, EventEmitter, Input, OnDestroy, OnInit, O
 import { IonInfiniteScroll } from '@ionic/angular';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { Property } from 'src/app/shared/interface/property';
+import { Booking } from 'src/app/shared/interface/booking';
 import { sortListByDate, sortListByName, sortListByNumber } from 'src/app/shared/utility';
 import { PropertiesService } from '../bookings.service';
 import { PropertyType } from 'src/app/shared/enums/property';
@@ -21,8 +21,8 @@ export class PropertiesListComponent implements OnInit, OnDestroy {
   @Input() limit = 0;
   @Output() isLoading = new EventEmitter<boolean>();
 
-  public properties: Property[];
-  public displayedItems: Property[] = [];
+  public properties: Booking[];
+  public displayedItems: Booking[] = [];
   public maxDisplayed = 8;
 
   private filterBy: PropertyType[] = [];
@@ -75,10 +75,10 @@ export class PropertiesListComponent implements OnInit, OnDestroy {
   }
 
   private searchProperties() {
-    this.properties = this.properties.filter((item: Property) => {
-      const name = item.name.toLowerCase();
-      const address = item.address.toLowerCase();
-      return name.includes(this.searchText) || address.includes(this.searchText);
+    this.properties = this.properties.filter((item: Booking) => {
+      //const name = item.name.toLowerCase();
+      //const address = item.address.toLowerCase();
+      return true//name.includes(this.searchText) || address.includes(this.searchText);
     });
   }
 
@@ -114,7 +114,7 @@ export class PropertiesListComponent implements OnInit, OnDestroy {
       }
       // if any filters are being selected
       if (this.filterBy.length) {
-        this.properties = this.properties.filter(item => this.filterBy.includes(item.type));
+        this.properties = this.properties.filter(item => this.filterBy.includes(item.property.type));
       }
       this.displayedItems = this.properties.slice(0, this.maxDisplayed);
     });

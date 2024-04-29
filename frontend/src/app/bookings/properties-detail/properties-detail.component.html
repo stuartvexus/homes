@@ -111,14 +111,14 @@
               </ion-card-header>
 
               <ion-card-content>
-                <ion-button expand="block" size="large" *ngIf="property?.accepted? === false">
+                <ion-button expand="block" size="large" *ngIf="property?.accepted === false">
                     PENDING
                   </ion-button>
-				<ion-button expand="block" size="large" *ngIf="property?.accepted? === true">
-					<span *ngIf="property?.status? === 'pending'" >
+				<ion-button expand="block" size="large" *ngIf="property?.accepted === true">
+					<span *ngIf="property?.status === 'pending'" >
 						PAY
 					</span>
-					<span *ngIf="property?.status? === 'paid'" >
+					<span *ngIf="property?.status === 'paid'" >
 						PAID
 					</span>
                   </ion-button>

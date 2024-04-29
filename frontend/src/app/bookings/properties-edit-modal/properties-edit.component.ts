@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { ModalController, ToastController } from '@ionic/angular';
 import { PropertyType } from 'src/app/shared/enums/property';
-import { Property } from 'src/app/shared/interface/property';
+import { Booking } from 'src/app/shared/interface/booking';
 import { PropertiesCoordinatesComponent } from '../properties-coordinates-modal/properties-coordinates.component';
 import { PropertiesService } from '../bookings.service';
 
@@ -30,7 +30,7 @@ export class PropertiesEditComponent implements OnInit {
       value: PropertyType.land
     }
   ];
-  public property: Property;
+  public property: Booking;
 
   constructor(
     private modalCtrl: ModalController,
@@ -53,24 +53,22 @@ export class PropertiesEditComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.propertiesService.property$.subscribe(property => {
-      this.property = property;
-      if (property) {
+    this.propertiesService.property$.subscribe(propertys => {
+      this.property = propertys;
+      if (propertys) {
         const {
-          name, address, description, type, price, currency, features, position
-        } = property;
+          property, amount, description, enquiries, status,accepted
+        } = propertys;
 
         this.propertyForm.patchValue(
           {
-            name,
-            address,
+            property,
+            amount,
             description,
-            type,
-            price,
-            currency,
-            features: features ? features.join(', ').trim() : '',
-            lat: position.lat,
-            lng: position.lng
+            enquiries,
+            status,
+            accepted
+            
           }
         );
       }
@@ -94,19 +92,7 @@ export class PropertiesEditComponent implements OnInit {
       lng,
     } = this.propertyForm.value;
 
-    const editedProperty: Property = {
-      property_id: this.property.property_id,
-      name,
-      address,
-      description,
-      type,
-      price,
-      currency,
-      updatedAt,
-      features: features.split(',').filter((item: string) => item.trim() !== ''),
-      position: { lat, lng },
-      user_id: this.property.user_id
-    };
+    const editedProperty = null
     const updatedProperty = { ...this.property, ...editedProperty };
     const res = await this.propertiesService.updateProperty(updatedProperty);
 

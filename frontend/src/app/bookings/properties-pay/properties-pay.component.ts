@@ -7,7 +7,7 @@ import {
   ToastController,
 } from '@ionic/angular';
 
-import { Property } from 'src/app/shared/interface/booking';
+import { Booking } from 'src/app/shared/interface/booking';
 import { PropertiesService } from '../bookings.service';
 import { ActionPopupComponent } from 'src/app/shared/components/action-popup/action-popup.component';
 import { PropertiesEditComponent } from '../properties-edit-modal/properties-edit.component';
@@ -24,7 +24,7 @@ import { PropertiesGalleryComponent } from '../properties-gallery/properties-gal
 })
 export class PropertiesPayComponent implements OnInit, OnDestroy {
   @ViewChild('propertiesGallery') propertiesGallery: PropertiesGalleryComponent;
-  public property: Property | undefined;
+  public property: Booking | undefined;
   public isOwner = false;
   public ready = false;
   private unsubscribe$ = new Subject<void>();
@@ -81,18 +81,12 @@ export class PropertiesPayComponent implements OnInit, OnDestroy {
       return;
     }
 
-	if (data.action === 'book') {
-      this.propertiesService.bookProperty(this.property.property_id);
-      this.presentToast('Success,property Booked');
-      this.router.navigate(['/properties/pay'+this.property.property_id]);
-    }
-   
   }
  
   
   public findInMap() {
-    const { lat, lng } = this.property.position;
-    this.router.navigate(['/map'], { queryParams: { lat, lng } });
+    //const { lat, lng } = this.property.position;
+    //this.router.navigate(['/map'], { queryParams: { lat, lng } });
   }
 
   public processPayment() {

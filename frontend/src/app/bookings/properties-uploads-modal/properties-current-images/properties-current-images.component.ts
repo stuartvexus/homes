@@ -59,25 +59,6 @@ export class PropertiesCurrentImagesComponent implements OnInit {
   }
 
   public async deleteSelected() {
-    const { data, message } = await this.propertyService.deletePropertyImage(
-      this.selectedImages,
-      this.id
-    );
-    if (data.length) {
-      const toast = await this.toastCtrl.create({
-        message,
-        duration: 3000,
-        color: 'success',
-      });
-      toast.present();
-      // we remove the current images that was deleted
-      const property = this.propertyService.property;
-      this.propertyService.property = {
-        ...property,
-        images: property.images.filter(
-          (currentImg) => !data.includes(currentImg)
-        ),
-      };
-    }
+    
   }
 }

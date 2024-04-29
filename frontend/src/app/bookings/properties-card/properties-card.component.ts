@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { BookingsService } from 'src/app/bookings/bookings.service';
+import { PropertiesService } from 'src/app/bookings/bookings.service';
 import { Booking } from 'src/app/shared/interface/booking';
 import { UserService } from 'src/app/user/user.service';
 
@@ -14,7 +14,7 @@ export class PropertiesCardComponent implements OnInit {
 
   @Input() property: Booking;
   constructor(
-    private bookingsService: BookingsService,
+    private bookingsService: PropertiesService,
     private router: Router,
     public userService: UserService
   ) { }
@@ -50,7 +50,7 @@ export class PropertiesCardComponent implements OnInit {
     }
   }
   public selectProperty(property: Booking) {
-	this.bookingsService.bookProperty(this.property.property_id);
+	//this.bookingsService.addProperty(this.property.property_id);
     this.bookingsService.property = property;
     this.router.navigate(['/book', property.property_id]);
   }
