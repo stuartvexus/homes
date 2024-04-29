@@ -21,8 +21,7 @@ export const getBookings = async function (req, res) {
   
   try {
     const bookings = await Booking.find().sort({createdAt:-1});
-	res.status(200).send({ data: property });
-	return
+	
 	let property= []
 	for(var book of bookings){
 		const r = {}
@@ -47,7 +46,17 @@ export const getUserBookings = async function (req, res) {
   const user_id = userIdToken(token);
   
   try {
-    const property = await Booking.find({user_id:user_id}).sort({createdAt:-1});
+    const bookings = await Booking.find({user_id:user_id}).sort({createdAt:-1});
+	let property= []
+	for(var book of bookings){
+		
+		if(book.property_id){
+			const house = await Property.findById(book.property_id)
+			book.property = house
+		}
+		
+		property.push(book)
+	}
     res.status(200).send({ data: property });
   } catch (error) {
     res.status(404).send({});

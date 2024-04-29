@@ -17,7 +17,7 @@
           <ion-card class="property-identity">
             <ion-card-content>
               <div class="name">
-                <ion-text color="dark">{{ property.name }}</ion-text>
+                <ion-text color="dark">{{ property?.property?.name }}</ion-text>
 
                 <ion-button
                   class="action-btn"
@@ -28,7 +28,7 @@
                 </ion-button>
               </div>
               <div class="type">
-                <app-property-badge [type]="property.type"></app-property-badge>
+                <app-property-badge [type]="property?.property?.type"></app-property-badge>
               </div>
               <div class="price"></div>
             </ion-card-content>
@@ -38,30 +38,28 @@
             [images]="property.images"
             [showEdit]="isOwner"
             (edit)="editImages()"
-            *ngIf="property.images"
+            *ngIf="property?.property?.images"
             #propertiesGallery
           ></app-properties-gallery>
 
           <ion-card class="property-description">
             <ion-card-header> Description </ion-card-header>
             <ion-card-content>
-              {{ property.description }}
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Ea
-              impedit alias laborum corrupti magnam in repellat! Corrupti
-              temporibus ut eos.
+              {{ property?.property?.description }}
+              
             </ion-card-content>
           </ion-card>
 
           <ion-card
             class="property-features"
-            *ngIf="property.features && property.features.length"
+            *ngIf="property?.property?.features && property?.property?.features.length"
           >
             <ion-card-header> Features </ion-card-header>
             <ion-card-content>
               <ion-badge
                 color="primary"
                 class="item"
-                *ngFor="let item of property.features"
+                *ngFor="let item of property?.property?.features"
               >
                 <div>
                   <ion-icon name="bookmark-outline"></ion-icon>
@@ -74,14 +72,14 @@
           <ion-card class="property-address">
             <ion-card-header> Address </ion-card-header>
             <ion-card-content>
-              {{ property.address }}
+              {{ property?.property?.address }}
             </ion-card-content>
           </ion-card>
 
-          <ion-card class="property-price" *ngIf="property.price">
+          <ion-card class="property-price" *ngIf="property?.property?.price">
             <ion-card-header> Price </ion-card-header>
             <ion-card-content class="price">
-              {{ property.price | currency: property.currency:"symbol" }}
+              {{ property?.property?.price | currency: property?.property?.currency:"symbol" }}
             </ion-card-content>
           </ion-card>
 
@@ -109,25 +107,21 @@
 
             <ion-card class="find-map-card">
               <ion-card-header>
-                <ion-card-title color="light">Book now</ion-card-title>
+                <ion-card-title color="light">Booked</ion-card-title>
               </ion-card-header>
 
               <ion-card-content>
-                <form (ngSubmit)="bookLocation()">
-                  <div>
-                  <label for="cardNumber">Phone Number:</label><br>
-                  <input type="text"  class="form-control" style="padding: 9px;"id="cardNumber" name="Number" required>
-                  </div>
-                  <div>
-                  <label for="expiry">Your Name:</label><br>
-                  <input type="text" id="expiry" class="form-control" style="padding:9px;"name="Name" placeholder="Your name" required>
-                  </div><br>
-                  <ion-button expand="block" size="large" (click)="bookLocation()">
-                    
-                    Book Now
+                <ion-button expand="block" size="large" *ngIf="property?.accepted? === false">
+                    PENDING
                   </ion-button>
-                 
-                </form>
+				<ion-button expand="block" size="large" *ngIf="property?.accepted? === true">
+					<span *ngIf="property?.status? === 'pending'" >
+						PAY
+					</span>
+					<span *ngIf="property?.status? === 'paid'" >
+						PAID
+					</span>
+                  </ion-button>
               </ion-card-content>
             </ion-card>
 
