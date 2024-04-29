@@ -23,13 +23,13 @@ export class PropertiesCardComponent implements OnInit {
 		
 	}
   public payBooking(property: Booking) {
-	this.bookingsService.payBooking(this.property.property_id);
+	this.bookingsService.payBooking(this.property.booking_id);
     this.bookingsService.property = property;
-    this.router.navigate(['/book', property.property_id]);
+    this.router.navigate(['/book', property.booking_id]);
   }
   
   public deleteBooking(property: Booking) {
-	this.bookingsService.removeBooking(this.property.property_id);
+	this.bookingsService.removeBooking(this.property.booking_id);
     this.bookingsService.property = property;
     this.router.navigate(['/book']);
   }
@@ -52,6 +52,6 @@ export class PropertiesCardComponent implements OnInit {
   public selectProperty(property: Booking) {
 	//this.bookingsService.addProperty(this.property.property_id);
     this.bookingsService.property = property;
-    this.router.navigate(['/book', property.property_id]);
+    this.router.navigate(['/book', property.booking_id]);
   }
 }

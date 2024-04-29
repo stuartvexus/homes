@@ -1,5 +1,6 @@
 import { Property } from "../../models/property.js";
 import { Booking } from "../../models/book.js";
+import {User} from "../../models/user.js"
 import { authBearerToken } from "../../utils/requests.js";
 import { userIdToken } from "../../utils/users.js";
 

@@ -15,10 +15,10 @@ export const deleteBooking = async function (req, res) {
     }
    
     const user = await User.findOne({ user_id });
-    user.bookings = user.bookings.filter(i => i !== Booking.Booking_id);
+    user.bookings = user.bookings.filter(i => i !== booking.booking_id);
     user.save();
 
-    res.status(200).send({ data: { ...Booking.toObject() } });
+    res.status(200).send({ data: { ...booking.toObject() } });
     return;
   } catch (error) {
     res.send(error);
