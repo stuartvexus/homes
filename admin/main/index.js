@@ -34,11 +34,7 @@ app.use(session({
   secret: 'your-secret-key',
   resave: false,
   saveUninitialized: true,
-<<<<<<< HEAD
   cookie: { secure: false } // Set secure to true if using HTTPS
-=======
-  cookie: { maxAge: 4 * 60 * 60 * 1000,secure: false } // Set secure to true if using HTTPS
->>>>>>> b0326e55f482dc1e3b2946118246b21902096b79
 }));
 
 const corsOptions ={
@@ -61,11 +57,9 @@ mongoose
   app.set('views', path.join(__dirname, 'admin'));
 	app.engine('.html', exphbs.engine({ extname: 'html'}));
 	app.set('view engine', '.html');
-<<<<<<< HEAD
-  
-=======
+
   app.use("",useRequests)
->>>>>>> b0326e55f482dc1e3b2946118246b21902096b79
+
   app.use("/api/auth", authRoute); 
   app.use("/api/users", userRoute);
   app.use("/api/products", productRoute);
@@ -77,7 +71,6 @@ mongoose
     res.redirect("/login")
   });
   app.get("/", verifyToken,async (req, res) => {
-<<<<<<< HEAD
     res.render("vendordashboard",{user:req.session.user});
   });
   app.get("/superuser",verifyToken, async (req, res) => {
@@ -98,37 +91,6 @@ mongoose
   });
   app.get("/orders", async (req, res) => {
     res.sendFile(path.join(__dirname,'admin/orders/index.html'));
-=======
-    res.render("index.html",{user:req.session.user});
-  });
-  app.get("/superuser",verifyToken, async (req, res) => {
-	  console.log(req.session.user)
-    res.render("index.html",{user:req.session.user});
-  });
-  app.get("/login", async (req, res) => {
-    const data = req.session
-    console.log(data)
-    const r = {success_msg:data.success,error_msg:data.error,error:data.error}
-    res.render('login.html',r);
-  });
-  app.get("/register", async (req, res) => {
-    const data = req.session
-    //console.log(data)
-    const r = {success_msg:data.success,error_msg:data.error,error:data.error}
-    res.render('register.html',r);
-  });
-  app.get("/settings/company", async (req, res) => {
-    res.render('settings/company/index.html');
-  });
-  app.get("/products",verifyToken, async (req, res) => {
-    res.render('products/index.html',{map_key: 'AIzaSyBEMWRGDnjpOs-aPsph65S0Bhpxsxapjlo'});
-  });
-  app.get("/orders", verifyToken,async (req, res) => {
-    res.render('orders/index.html');
-  });
-  app.get("/enquiries", verifyToken,async (req, res) => {
-    res.render('enquiries/index.html');
->>>>>>> b0326e55f482dc1e3b2946118246b21902096b79
   });
 
 

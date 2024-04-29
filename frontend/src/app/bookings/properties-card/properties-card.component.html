@@ -5,13 +5,13 @@
 
   
   <ion-card-header>
-    <app-property-badge [type]="property?.type"></app-property-badge>
+    <app-property-badge [type]="property?.property?.type"></app-property-badge>
     <ion-card-title class="name">
-      {{ property?.email }}
+      {{ property?.property?.email }}
     </ion-card-title>
 
     <div>
-      {{ property?.createdAt | date }}
+      {{ property?.property?.createdAt | date }}
     </div>
   </ion-card-header>
 

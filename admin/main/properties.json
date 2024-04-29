@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 {"MONGO_URL":"mongodb+srv://clairemutindi324:Mutindi2002@cluster0.fe3vcst.mongodb.net/shoestore?retryWrites=true&w=majority",
-=======
-{"MONGO_URL":"mongodb://127.0.0.1/homesrentaladmin",
->>>>>>> b0326e55f482dc1e3b2946118246b21902096b79
     "PASS_SEC":"secret",
     "JWT_SEC":"secret"
 }
