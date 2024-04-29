@@ -23,7 +23,7 @@ export const createBooking = async function (req, res) {
     }
 	const booking = await Booking.findOne({property_id:id,user_id:req.user.id,accepted:false})
 	if(booking){
-		res.status(200).message({message:"House already booked, awaiting admin approval",data:booking})
+		res.status(200).send({message:"House already booked, awaiting admin approval",data:booking})
 		return
 	}
     const newBooking = new Booking({

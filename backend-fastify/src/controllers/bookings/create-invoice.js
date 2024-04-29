@@ -32,13 +32,20 @@ export const createInvoice = async function (req, res) {
 		res.status(400).send({ message: "Error: Booking not approved." });
 		return
 	}
-	const user = await User.findOne(user_id)
-	if(!user.phone){
+	const user = await User.findOne({user_id:user_id})
+	if(!user.phone && !data.phone){
 		res.status(400).send({ message: "Error: Link phone to your account to proceed." });
 		return
 	}
+	if(data.phone){user.phone = data.phone}
 	if(user.phone.startsWith("0")){
 		user.phone = user.phone.replace(/^0/,"254")
+	}
+	if(user.phone.startsWith("7")){
+		user.phone = "254"+user.phone
+	}
+	if(user.phone.startsWith("1")){
+		user.phone = "254"+user.phone
 	}
 	const postData = {
 		amount:booking.amount,
@@ -46,13 +53,20 @@ export const createInvoice = async function (req, res) {
 		description:"Pay Real ESTATE MANAGEMENT",
 		phoneNumber:user.phone,
 	}
+	console.log("charge=>",postData)
 	try{
 		const pay_response = await axios.post('https://pay.weparkafrica.com/stkpush/process', JSON.stringify(postData));
-		if(pay_response.status !== '00'){
-			res.status(400).json({message:"Payment could not be processed => "+JSON.stringify(pay_response.message)})
+		if(pay_response.status == 200){
+			console.log("response pay=>",pay_response.data)
+			let jsonres = pay_response.data
+			if(jsonres.status && jsonres.status !== '00'){
+				res.status(pay_response.status).send({message:`Payment could not be processed , status ${jsonres.status} => `+jsonres.message})
+			}else{
+				res.status(pay_response.status).send({message:"Error occured while procesing payment =>"+jsonres.status+" =>"+jsonres.message})
+			}
 		}
 	}catch(e){
-		res.status(400).json({message:"Error occured while procesing payment =>"+e})
+		res.status(400).send({message:"Error occured while procesing payment =>"+e})
 		return
 	}
 	
