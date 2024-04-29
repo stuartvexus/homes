@@ -21,6 +21,11 @@ export const createBooking = async function (req, res) {
       res.status(400).send({ message: "Error: Property location no longer exists." });
       return;
     }
+	const booking = await Booking.findOne({property_id:id,user_id:req.user.id,accepted:false})
+	if(booking){
+		res.status(200).message({message:"House already booked, awaiting admin approval",data:booking})
+		return
+	}
     const newBooking = new Booking({
       booking_id: uuidv4(),
       property_id:id,
