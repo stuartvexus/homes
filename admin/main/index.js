@@ -35,6 +35,7 @@ app.use(session({
   resave: false,
   saveUninitialized: true,
   cookie: { secure: false } // Set secure to true if using HTTPS
+ 
 }));
 
 const corsOptions ={
@@ -78,7 +79,9 @@ mongoose
     res.render("vendordashboard",{user:req.session.user});
   });
   app.get("/login", async (req, res) => {
-    res.sendFile(path.join(__dirname,'admin/login.html'));
+    req.session.success = null
+    req.session.error = null
+    res.render('login.html',{success_msg:null,error:null,error_msg:null});
   });
   app.get("/register", async (req, res) => {
     res.sendFile(path.join(__dirname,'admin/register.html'));
