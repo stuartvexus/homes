@@ -47,23 +47,24 @@ export const createInvoice = async function (req, res) {
 	if(user.phone.startsWith("1")){
 		user.phone = "254"+user.phone
 	}
+	let pay_response = null
 	const postData = {
-		amount:booking.amount,
+		amount:""+booking.amount,
 		accountReference:"REAL ESTATE PURCHASE",
-		description:"Pay Real ESTATE MANAGEMENT",
-		phoneNumber:user.phone,
+		description:"REAL ESTATE MANAGEMENT",
+		callBackURL: "https://pay.weparkafrica.com/query/process",
+		phoneNumber:user.phone
 	}
-	console.log("charge=>",postData)
+	console.log("charge=>",JSON.stringify(postData))
 	try{
-		const pay_response = await axios.post('https://pay.weparkafrica.com/stkpush/process', JSON.stringify(postData));
+		pay_response = await axios.post('https://pay.weparkafrica.com/stkpush/process', postData);
 		if(pay_response.status == 200){
 			console.log("response pay=>",pay_response.data)
 			let jsonres = pay_response.data
 			if(jsonres.status && jsonres.status !== '00'){
 				res.status(pay_response.status).send({message:`Payment could not be processed , status ${jsonres.status} => `+jsonres.message})
-			}else{
-				res.status(pay_response.status).send({message:"Error occured while procesing payment =>"+jsonres.status+" =>"+jsonres.message})
 			}
+			pay_response = pay_response.data
 		}
 	}catch(e){
 		res.status(400).send({message:"Error occured while procesing payment =>"+e})
@@ -72,7 +73,7 @@ export const createInvoice = async function (req, res) {
 	
 	const invoice = await Invoice.findOne({booking_id:id,user_id:user_id})
 	if(invoice){
-		if(pay_response.status == '00'){
+		if(pay_response && pay_response.status == '00'){
 			invoice.complete = true
 			invoice.status = "paid"
 			invoice.checkoutRequestId = pay_response.checkoutRequestId
@@ -81,10 +82,10 @@ export const createInvoice = async function (req, res) {
 			booking.status = "paid"
 			await invoice.save()
 			await booking.save()
-			res.status(201).send({data:invoice})
+			res.status(201).send({data:invoice,message:"Order completed purchase, You own this property"})
 			return
 		}
-		return res.status(201).send({data:invoice})
+		return res.status(201).send({data:invoice,message:"Incomplete payment, invalid response"})
 	}
   let amt = property ? property.price : booking.amount;
     const newInvoice = new Invoice({
@@ -97,7 +98,7 @@ export const createInvoice = async function (req, res) {
       user_id,
       ...req.body,
     });
-	if(!data.status || data.status == '00' ){
+	if(pay_response && pay_response.status == '00' ){
 		newInvoice.status = "paid"
 		newInvoice.complete= true
 		booking.complete = true
@@ -107,7 +108,7 @@ export const createInvoice = async function (req, res) {
     
     await newBooking.save();
     
-    res.status(201).send({ data: newBooking });
+    res.status(201).send({ data: newBooking,message:`Request complete with ${pay_response.status === '00' ? 'Success response' : 'Incomplete payment'}` });
   } catch (error) {
     res.send(error);
   }

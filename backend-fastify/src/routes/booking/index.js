@@ -6,6 +6,7 @@ import {
     updateBookingOpts,
     deleteBookingOpts,
     getIncomeOpts,
+	getIncomesOpts,
     getOrdersOpts,
   } from "./options/index.js";
   import {
@@ -25,7 +26,7 @@ import {
   
   export const bookRoutes = function (fastify, opts, done) {
     fastify.get("/", getBookings);
-    fastify.get("/income/all", getIncomeOpts(fastify,getInvoices));
+    fastify.get("/income/all", getIncomesOpts(fastify,getInvoices));
     fastify.get("/income/user/:id", getIncomeOpts(fastify,getUserInvoice));
     fastify.get("/income/:id", getIncomeOpts(fastify,getInvoice));
     fastify.get("/user", getBookingsOpts(getUserBookings));

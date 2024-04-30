@@ -78,6 +78,10 @@ mongoose
 	  console.log(req.session.user)
     res.render("index.html",{user:req.session.user});
   });
+  app.get("/enquiries",verifyToken, async (req, res) => {
+	  console.log(req.session.user)
+    res.render("enquiries/index.html",{user:req.session.user});
+  });
   app.get("/login", async (req, res) => {
     req.session.success = null
     req.session.error = null

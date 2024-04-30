@@ -27,8 +27,14 @@ $(document).ready( () => {
 				  $('.all-products').empty();
 			}else{
 			console.log("properties=>",data)
+			let i = 0;
+			let value = 0
  		    $('.all-products').empty();
 				$.each(data.data,  (key, val) => {
+					value += parseFloat(val.price)
+					$(".properties-total").text(i++)
+					$(".properties-new-total").text(i++)
+					$(".properties-total-value").text(value)
 					fetched_houses.push({id:val.property_id,name:val.name})
 					console.log("position",val.position)
 					$('.all-products').append(`
@@ -112,9 +118,11 @@ $(document).ready( () => {
 				 //console.log('yes');
 				 $('.all-orders').empty();
 			}else{
-				
+				let amt = 0
 				$('.all-orders').empty();
 				$.each(data.data,  (key, val) => {
+					$(".properties-booked").text(amt+=val.amount)
+					$(".orders-income").text(amt)
 					for(var h of fetched_houses){
 						if(h.id === val.property_id){
 							val.property_name = h.name
@@ -149,7 +157,11 @@ $(document).ready( () => {
 			if (jQuery.isEmptyObject(data)) {
 				 //console.log('yes');
 			}else{
+				let amt = 0
 				console.log("income",data)
+				$.each(data.data,  (key, val) => {
+					$(".properties-total-invoice").text(amt+=val.amount)
+				})
 				$('.hm-recent-orders').empty();
 				$('.hm-trending-products').empty();
 				/*$('.total-products').text(data.products.length);
@@ -174,13 +186,11 @@ $(document).ready( () => {
 				 //console.log('yes');
 				 $('.all-users').empty();
 			}else{
-				
+				let i = 0
 				$('.all-users').empty();
 				$.each(data.data,  (key, val) => {
 					fetched_users.push({id:val.user_id,name:val.fullName})
-					$('.all-users').append( `
-						${JSON.stringify(val)}
-					`);
+					$(".properties-customers").text(i++)
 				 });
 			}
 		});
@@ -247,7 +257,7 @@ $(document).ready( () => {
 				
 				$('.all-enquiries').empty();
 				$.each(data.data,  (key, val) => {
-					console.log(val)
+					//console.log(val)
 					$('.all-enquiries').append( `
 						<li class="p-2 border-bottom" onclick="Service.enquiryRoom('${val.enquiry_id}')">
 							<a href="#!" class="d-flex justify-content-between">

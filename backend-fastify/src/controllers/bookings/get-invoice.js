@@ -22,7 +22,7 @@ export const getInvoices = async function (req, res) {
 };
 
 export const getUserInvoice = async function (req, res) {
-  const {user} = req.params 
+  const user = req.params.id
   try {
     const property = await Invoice.find({user_id:user}).sort({createdAt:-1});
     res.status(200).send({ data: property });
