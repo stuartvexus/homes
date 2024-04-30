@@ -106,9 +106,9 @@ export const createInvoice = async function (req, res) {
 		await booking.save()
 	}
     
-    await newBooking.save();
+    await newInvoice.save();
     
-    res.status(201).send({ data: newBooking,message:`Request complete with ${pay_response.status === '00' ? 'Success response' : 'Incomplete payment'}` });
+    res.status(201).send({ data: newInvoice,message:`Request complete with ${pay_response.status === '00' ? 'Success response' : 'Incomplete payment'}` });
   } catch (error) {
     res.send(error);
   }
