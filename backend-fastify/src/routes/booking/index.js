@@ -42,6 +42,7 @@ import {
   
   export const orderRoutes = (fastify,opts,done) =>{
       fastify.get("/",getOrders);
+	  fastify.get("/income/all",getInvoices);
 	  fastify.get("/user",getUserOrders);
       done();
   }

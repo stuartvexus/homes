@@ -14,7 +14,18 @@ export const getInvoice = async function (req, res) {
 export const getInvoices = async function (req, res) {
   
   try {
-    const property = await Invoice.find().sort({createdAt:-1});
+	let property = []
+    const invoices = await Invoice.find().sort({createdAt:-1});
+	for(var invoice of invoices){
+		const r = {}
+		
+		const book = await Book.findOne({booking_id:invoice.booking_id})
+		r.book = book
+		const house = await Property.findOne({property_id:invoice.property_id})
+		r.property = house
+		property.push({...r,...invoice})
+		
+	}
     res.status(200).send({ data: property });
   } catch (error) {
     res.status(404).send({});

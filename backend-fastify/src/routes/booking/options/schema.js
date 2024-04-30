@@ -9,7 +9,7 @@ export const invoiceProperties = {
     date:{type:"string"},
 	merchantRequestId:{type:"string"},
 	checkoutRequestId:{type:"string"},
-	due:{type:"date"},
+	due:{type:"string"},
   },
 };
 

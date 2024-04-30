@@ -34,7 +34,7 @@ $(document).ready( () => {
 					value += parseFloat(val.price)
 					$(".properties-total").text(i++)
 					$(".properties-new-total").text(i++)
-					$(".properties-total-value").text(value)
+					$(".properties-total-value").text(`KES ${value}`)
 					fetched_houses.push({id:val.property_id,name:val.name})
 					console.log("position",val.position)
 					$('.all-products').append(`
@@ -121,7 +121,7 @@ $(document).ready( () => {
 				let amt = 0
 				$('.all-orders').empty();
 				$.each(data.data,  (key, val) => {
-					$(".properties-booked").text(amt+=val.amount)
+					$(".properties-booked").text(`KES ${ amt+=val.amount}`)
 					$(".orders-income").text(amt)
 					for(var h of fetched_houses){
 						if(h.id === val.property_id){
@@ -153,26 +153,43 @@ $(document).ready( () => {
 	Service.Orders();
 	Service.Income =  () => {
 
-		$.getJSON(Path.gate('/book',null,'/income/all'),  (data) => {
+		$.getJSON(Path.gate('/orders',null,'/income/all'),  (data) => {
 			if (jQuery.isEmptyObject(data)) {
 				 //console.log('yes');
 			}else{
 				let amt = 0
 				console.log("income",data)
 				$.each(data.data,  (key, val) => {
-					$(".properties-total-invoice").text(amt+=val.amount)
+					$(".properties-total-invoice").text(`KES ${amt+=val.amount}`)
 				})
 				$('.hm-recent-orders').empty();
 				$('.hm-trending-products').empty();
-				/*$('.total-products').text(data.products.length);
-				$('.total-orders').text(data.orders.length);
-				$('.total-pending').text(data.pending.length);
-				$('.total-sales').text(data.amount);*/
-				
-				//var i = 0
-				
-				//Service.roundedChart("chart-order",["Recent Orders","Pending Payments","Recieved Payments"],[data.invoice,data.invoice-data.amount,data.amount])
+				$('.all-transactions').empty();
+				$.each(data.data,  (key, val) => {
+					
+					for(var h of fetched_houses){
+						if(h.id === val.property_id){
+							val.property_name = h.name
+						}
+					}
+					for(var u of fetched_users){
+						if(u.id === val.user_id){
+							val.user_name = u.name
+						}
+					}
+					$('.all-transactions').append( `
+						<tr>
+							<td>2</td>
+							<td><a href="#${val._id}">${val.user_name}</a></td>
+							<td>${val.property_name}</td>                       
+							
+							<td><span class="status text-info">&bull;</span> ${val.complete === true ? "complete payment" : "Pending payment"}</td>
+							
+							<td><a href="javascript:void(0)" class="view update-order" title="Date" data-toggle="tooltip">${new Date(val.createdAt).toUTCString()}<i class="material-icons">&#xE5C8;</i></a></td>
 
+						</tr>
+					`);
+				 });
 			}
 		});
 	}

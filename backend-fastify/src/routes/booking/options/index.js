@@ -1,5 +1,5 @@
 import { getBookingsOpts } from "./get-bookings.js";
-import { getIncomeOpts } from "./get-income.js";
+import { getIncomeOpts,getIncomesOpts } from "./get-income.js";
 import { getBookingOpts } from "./get-bookings.js";
 import { createBookingOpts } from "./create-booking.js";
 import { createInvoiceOpts } from "./create-invoice.js";
@@ -15,5 +15,6 @@ export {
   updateBookingOpts,
   deleteBookingOpts,
   getIncomeOpts,
+  getIncomesOpts,
   getOrdersOpts,
 };

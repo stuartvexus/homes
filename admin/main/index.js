@@ -101,6 +101,9 @@ mongoose
   app.get("/orders", async (req, res) => {
     res.sendFile(path.join(__dirname,'admin/orders/index.html'));
   });
+  app.get("/transactions", async (req, res) => {
+    res.sendFile(path.join(__dirname,'admin/transactions/index.html'));
+  });
 
 
   app.post("/stk", async (req, res) => {
