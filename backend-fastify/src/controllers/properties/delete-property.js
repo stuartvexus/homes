@@ -9,17 +9,18 @@ export const deleteProperty = async function (req, res) {
   try {
     const token = authBearerToken(req);
     const user_id = userIdToken(token);
-    const property = await Property.findOneAndDelete({ property_id: id, user_id });
+    const property = await Property.findOneAndDelete({ property_id: id});
     if (!property) {
       res.status(404).send({});
     }
     if (property.images?.length) {
       unlinkImages(property.images);
     }
-    const user = await User.findOne({ user_id });
-    user.properties = user.properties.filter(i => i !== property.property_id);
-    user.save();
-
+	if(user_id !==  'superadmin'){
+		const user = await User.findOne({ user_id });
+		user.properties = user.properties.filter(i => i !== property.property_id);
+		user.save();
+	}
     res.status(200).send({ data: { ...property.toObject() } });
     return;
   } catch (error) {

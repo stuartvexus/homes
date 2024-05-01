@@ -32,7 +32,13 @@ export const createInvoice = async function (req, res) {
 		res.status(400).send({ message: "Error: Booking not approved." });
 		return
 	}
-	const user = await User.findOne({user_id:user_id})
+	let user = await User.findOne({user_id:user_id})
+	if(!user && user_id !== 'superadmin'){
+		res.status(400).send({ message: "Error: Link phone to your account to proceed." });
+		return
+	}else if(user_id === 'superadmin'){
+		user = {phone:null}
+	}
 	if(!user.phone && !data.phone){
 		res.status(400).send({ message: "Error: Link phone to your account to proceed." });
 		return
@@ -63,8 +69,16 @@ export const createInvoice = async function (req, res) {
 			let jsonres = pay_response.data
 			if(jsonres.status && jsonres.status !== '00'){
 				res.status(pay_response.status).send({message:`Payment could not be processed , status ${jsonres.status} => `+jsonres.message})
+				return
+			}
+			if(!jsonres){
+				res.status(400).send({message:"Error occured while procesing payment =>"})
+				return
 			}
 			pay_response = pay_response.data
+		}else{
+			res.status(400).send({message:"Error occured while procesing payment =>"+pay_response.status})
+			return
 		}
 	}catch(e){
 		res.status(400).send({message:"Error occured while procesing payment =>"+e})
@@ -73,19 +87,17 @@ export const createInvoice = async function (req, res) {
 	
 	const invoice = await Invoice.findOne({booking_id:id,user_id:user_id})
 	if(invoice){
-		if(pay_response && pay_response.status == '00'){
-			invoice.complete = true
-			invoice.status = "paid"
-			invoice.checkoutRequestId = pay_response.checkoutRequestId
-			invoice.merchantRequestId = pay_response.merchantRequestId
-			booking.complete = true
-			booking.status = "paid"
-			await invoice.save()
-			await booking.save()
-			res.status(201).send({data:invoice,message:"Order completed purchase, You own this property"})
-			return
-		}
-		return res.status(201).send({data:invoice,message:"Incomplete payment, invalid response"})
+		
+		invoice.complete = true
+		invoice.status = "paid"
+		invoice.checkoutRequestId = pay_response.checkoutRequestId
+		invoice.merchantRequestId = pay_response.merchantRequestId
+		booking.complete = true
+		booking.status = "paid"
+		await invoice.save()
+		await booking.save()
+		res.status(201).send({data:invoice,message:"Order completed purchase, You own this property"})
+		return
 	}
   let amt = property ? property.price : booking.amount;
     const newInvoice = new Invoice({
@@ -98,13 +110,13 @@ export const createInvoice = async function (req, res) {
       user_id,
       ...req.body,
     });
-	if(pay_response && pay_response.status == '00' ){
-		newInvoice.status = "paid"
-		newInvoice.complete= true
-		booking.complete = true
-		booking.status = "paid"
-		await booking.save()
-	}
+	
+	newInvoice.status = "paid"
+	newInvoice.complete= true
+	booking.complete = true
+	booking.status = "paid"
+	await booking.save()
+	
     
     await newInvoice.save();
     
