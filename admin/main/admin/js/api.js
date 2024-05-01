@@ -329,7 +329,7 @@ Service.del = (a,b) => {
 	console.log("del",a,b)
 
 	// hilmacs default comment
-	$.delete(Path.gate(b,null,'/'+a)).always( () => {
+	$.delete(Path.gate(b,null,'/'+a),{'delete':true}).always( () => {
      $('.'+a+'_btn').removeClass('red');
 		 $('.'+a+'_btn').addClass('yellow');
 		 $('.'+a+'_btn').html(hcr('loaderIcon_sm')+' Discarding');

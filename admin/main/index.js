@@ -96,7 +96,7 @@ mongoose
     res.sendFile(path.join(__dirname,'admin/settings/company/index.html'));
   });
   app.get("/products", async (req, res) => {
-    res.sendFile(path.join(__dirname,'admin/products/index.html'));
+   res.render('products/index.html',{success_msg:null,error:null,error_msg:null,map_key:'AIzaSyBEMWRGDnjpOs-aPsph65S0Bhpxsxapjlo'});
   });
   app.get("/orders", async (req, res) => {
     res.sendFile(path.join(__dirname,'admin/orders/index.html'));
